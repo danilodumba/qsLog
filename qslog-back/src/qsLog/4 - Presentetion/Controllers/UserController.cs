@@ -69,6 +69,5 @@ namespace qsLog.Presentetion.Controllers
             return NoContent();
         }
 
-
     }
 }

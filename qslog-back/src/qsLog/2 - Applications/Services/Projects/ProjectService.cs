@@ -68,7 +68,7 @@ namespace qsLog.Applications.Services.Projects
             };
         }
 
-        public Task<IList<ProjectModel>> GetByName(string name)
+        public Task<IList<ProjectModel>> ListByName(string name)
         {
             throw new NotImplementedException();
         }

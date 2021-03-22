@@ -11,6 +11,6 @@ namespace qsLog.Applications.Services.Interfaces
         Task Update(ProjectModel model, Guid id);
         Task<ProjectModel> GetByID(Guid id);
         IList<ProjectListModel> ListAll();
-        Task<IList<ProjectModel>> GetByName(string name);
+        Task<IList<ProjectModel>> ListByName(string name);
     }
 }

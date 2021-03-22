@@ -7,6 +7,7 @@ namespace qsLog.Applications.Commands
 {
     public class CreateLogCommand : Command<Guid>
     {
+        public CreateLogCommand() {}
         public CreateLogCommand(
             string description,
             string source,

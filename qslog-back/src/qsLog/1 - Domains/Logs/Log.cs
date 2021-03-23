@@ -23,7 +23,7 @@ namespace qsLog.Domains.Logs
         public string Source { get; private set; }
         public LogTypeEnum LogType { get; private set; }
         public DateTime Creation { get; private set; }
-        public Project Project { get; private set; }
+        public virtual Project Project { get; private set; }
 
         protected override void Validate()
         {

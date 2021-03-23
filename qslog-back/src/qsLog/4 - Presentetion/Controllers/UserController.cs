@@ -8,6 +8,7 @@ using qsLog.Presentetion.Models;
 
 namespace qsLog.Presentetion.Controllers
 {
+    [Route("api/[controller]")]
     public class UserController: ApiController
     {
         readonly IUserService _userService;
@@ -17,10 +18,13 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(UserModel model)
+        public async Task<IActionResult> Create([FromBody] UserModel model)
         {
-            await _userService.Create(model);
-            return NoContent();
+            var id = await _userService.Create(model);
+            if (id == Guid.Empty)
+                return NoContent();
+            
+            return CreatedAtRoute("GetById", new {id}, id);
         }
 
         [HttpPut("{id}")]
@@ -36,11 +40,11 @@ namespace qsLog.Presentetion.Controllers
             return Ok(_userService.ListAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var model = await _userService.GetByID(id);
-            if (model.IsValid())
+            if (model != null)
             {
                 return Ok(model);
             }

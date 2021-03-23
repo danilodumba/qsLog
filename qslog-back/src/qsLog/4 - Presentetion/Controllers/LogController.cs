@@ -10,6 +10,7 @@ using qsLog.Presentetion.Models;
 
 namespace qsLog.Presentetion.Controllers
 {
+    [Route("api/[controller]")]
     public class LogController: ApiController
     {
         readonly IMediator _mediator;

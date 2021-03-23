@@ -6,6 +6,7 @@ using qsLog.Applications.Services.Interfaces;
 
 namespace qsLog.Presentetion.Controllers
 {
+    [Route("api/[controller]")]
     public class ProjectController: ApiController
     {
         readonly IProjectService _projectService;

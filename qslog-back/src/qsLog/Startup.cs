@@ -13,19 +13,21 @@ namespace qsLog
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfraDatabaseMySql(Configuration.GetConnectionString("MySqlConn")); //Inclui o banco de dados da infra
             services.AddApplicationServices(typeof(Startup)); // Inclui o servico de aplicacao.
-            services.AddValidationService(); //Adicionado do qsLibPack
+            services.AddValidationService(); //Adicionado a validacao com mensagens do qsLibPack
             
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,13 +46,16 @@ namespace qsLog
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "qsLog v1"));
             }
 
-            app.UseHttpsRedirection();
+            if (env.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseValidationService(); //Adicionado do qsLibPack
+            app.UseValidationService(); //Usando a validacao de mensagens do qsLibPack
 
             app.UseEndpoints(endpoints =>
             {

@@ -8,7 +8,7 @@ namespace qsLog.Applications.Services.Interfaces
 {
     public interface IUserService
     {
-        Task Create(UserModel model);
+        Task<Guid> Create(UserModel model);
         Task Update(UserModel model, Guid id);
         Task<UserModel> GetByID(Guid id);
         IList<UserListModel> ListAll();

@@ -21,19 +21,18 @@ namespace qsLog.Applications.Services.Users
         {
             _userRepository = userRepository;
         }
-
-        public async Task Create(UserModel model)
+        public async Task<Guid> Create(UserModel model)
         {
              if (!model.IsValid())
             {
                 _validationService.AddErrors(model.Errors);
-                return;
+                return Guid.Empty;
             }
 
             if (_userRepository.ExistsUserName(model.UserName))
             {
                 _validationService.AddErrors("UserName", "Login já informado. Por favor, informe outro.");
-                return;
+                return Guid.Empty;
             }
 
             try
@@ -41,10 +40,13 @@ namespace qsLog.Applications.Services.Users
                 var user = new User(model.Name, model.UserName, model.Email, new qsLibPack.Domain.ValueObjects.PasswordVO(model.Password, model.ConfirmPassword), model.Administrator);
                 await _userRepository.CreateAsync(user);
                 await _uow.CommitAsync();
+
+                return user.Id;
             }
             catch (DomainException dx)
             {
                 _validationService.AddErrors("U01", dx.Message);
+                return Guid.Empty;
             }
         }
 
@@ -64,7 +66,7 @@ namespace qsLog.Applications.Services.Users
         public async Task<UserModel> GetByID(Guid id)
         {
             var u = await _userRepository.GetByIDAsync(id);
-            if (u == null) return new UserModel();
+            if (u == null) return null;
 
             return new UserModel
             {

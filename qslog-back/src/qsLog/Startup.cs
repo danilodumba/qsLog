@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using qsLibPack.Middlewares;
 using qsLibPack.Validations.IoC;
+using qsLog.Applications.IoC;
+using qsLog.Infrastructure.Database.MySql.EF.IoC;
 
 namespace qsLog
 {
@@ -21,8 +23,10 @@ namespace qsLog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddInfraDatabaseMySql(Configuration.GetConnectionString("MySqlConn")); //Inclui o banco de dados da infra
+            services.AddApplicationServices(typeof(Startup)); // Inclui o servico de aplicacao.
             services.AddValidationService(); //Adicionado do qsLibPack
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

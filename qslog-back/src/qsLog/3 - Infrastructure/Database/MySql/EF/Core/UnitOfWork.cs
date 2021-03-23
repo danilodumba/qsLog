@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using qsLibPack.Repositories.Interfaces;
-using qsLog.Infrastructure.EF.Contexts;
+using qsLog.Infrastructure.Database.MySql.EF.Contexts;
 
-namespace qsLog.Infrastructure.EF.Core
+namespace qsLog.Infrastructure.Database.MySql.EF.Core
 {
     public class UnitOfWork : IUnitOfWork
     {

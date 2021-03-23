@@ -1,3 +1,4 @@
+using System.Linq;
 using qsLog.Domains.Logs.Repository;
 using qsLibPack.Repositories.EF;
 using System.Collections.Generic;
@@ -5,9 +6,9 @@ using qsLog.Domains.Logs.DTO;
 using qsLibPack.Domain.ValueObjects.Br;
 using System;
 using qsLog.Domains.Logs;
-using qsLog.Infrastructure.EF.Contexts;
+using qsLog.Infrastructure.Database.MySql.EF.Contexts;
 
-namespace qsLog.Infrastructure.EF.QueryRepositories
+namespace qsLog.Infrastructure.Database.MySql.EF.QueryRepositories
 {
     public class LogQueryRepository : QueryRepository, ILogQueryRepository
     {
@@ -30,10 +31,9 @@ namespace qsLog.Infrastructure.EF.QueryRepositories
                             and (@description is null or description like @description)
                             and (@projectID is null or l.project_id = @projectID)
                             and (@type is null or log_type = @type)
-                        order by creation desc
-                        limit 500";
+                        order by creation desc";
             
-            return this.SelectSql<LogListDTO>(sql);
+            return this.SelectSql<LogListDTO>(sql).Take(500);
         }
     }
 }

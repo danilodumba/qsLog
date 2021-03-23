@@ -6,7 +6,6 @@ namespace qsLog.Domains.Logs.DTO
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
-        public string Source { get; set; }
         public int LogType { get; set; }
         public DateTime Creation { get; set; }
         public string Project { get; set; }

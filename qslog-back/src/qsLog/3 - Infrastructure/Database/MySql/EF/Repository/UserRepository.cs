@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using qsLibPack.Repositories.EF;
 using qsLog.Domains.Users;
 using qsLog.Domains.Users.Repository;
-using qsLog.Infrastructure.EF.Contexts;
+using qsLog.Infrastructure.Database.MySql.EF.Contexts;
 
-namespace qsLog.Infrastructure.EF.Repository
+namespace qsLog.Infrastructure.Database.MySql.EF.Repository
 {
     public class UserRepository : Repository<User, Guid>, IUserRepository
     {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using qsLibPack.Repositories.EF;
 using qsLog.Domains.Projects;
 using qsLog.Domains.Projects.Repository;
-using qsLog.Infrastructure.EF.Contexts;
+using qsLog.Infrastructure.Database.MySql.EF.Contexts;
 
-namespace qsLog.Infrastructure.EF.Repository
+namespace qsLog.Infrastructure.Database.MySql.EF.Repository
 {
     public class ProjectRepository : Repository<Project, Guid>, IProjectRepository
     {

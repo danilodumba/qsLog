@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using qsLog.Domains.Logs;
 using qsLog.Domains.Projects;
 using qsLog.Domains.Users;
+using qsLog.Infrastructure.Database.MySql.EF.Mapps;
 
-namespace qsLog.Infrastructure.EF.Contexts
+namespace qsLog.Infrastructure.Database.MySql.EF.Contexts
 {
     public class LogContext : DbContext
     {
@@ -23,7 +23,9 @@ namespace qsLog.Infrastructure.EF.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new ProjectMap());
+            modelBuilder.ApplyConfiguration(new LogMap());
         }
     }
 }

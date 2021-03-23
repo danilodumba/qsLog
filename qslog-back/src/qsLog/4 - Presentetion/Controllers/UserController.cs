@@ -68,6 +68,5 @@ namespace qsLog.Presentetion.Controllers
             await _userService.ResetPassword(id);
             return NoContent();
         }
-
     }
 }

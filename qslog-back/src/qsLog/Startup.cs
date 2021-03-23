@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using qsLibPack.Middlewares;
+using qsLibPack.Validations.IoC;
 
 namespace qsLog
 {
@@ -27,6 +22,7 @@ namespace qsLog
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddValidationService(); //Adicionado do qsLibPack
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -49,6 +45,8 @@ namespace qsLog
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseValidationService(); //Adicionado do qsLibPack
 
             app.UseEndpoints(endpoints =>
             {

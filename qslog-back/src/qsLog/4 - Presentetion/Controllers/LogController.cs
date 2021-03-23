@@ -26,7 +26,8 @@ namespace qsLog.Presentetion.Controllers
         {
             var command = new CreateLogCommand(model.Description, model.Source, model.LogType, model.ProjectID);
             var logID = await _mediator.Send(command);
-            if (logID == Guid.Empty) return NoContent();
+            if (logID == Guid.Empty) 
+                return NoContent();
 
             return Ok(logID);
         }
@@ -41,13 +42,19 @@ namespace qsLog.Presentetion.Controllers
             };
 
             var model = await _mediator.Send(command);
-            if (model.Id == Guid.Empty) return NoContent();
+            if (model.Id == Guid.Empty) 
+                return NoContent();
 
             return Ok(model);
         }
 
         [HttpGet("{dataInicial}/{dataFinal}")]
-        public IActionResult List(DateTime dataInicial, DateTime dataFinal, string nome, LogTypeEnum? type, Guid? projectID)
+        public IActionResult List(
+            DateTime dataInicial,
+            DateTime dataFinal,
+            string nome,
+            LogTypeEnum? type,
+            Guid? projectID)
         {
             var periodo = new PeriodoVO(dataInicial, dataFinal);
             return Ok(_logQueryRepository.List(periodo, nome, projectID, type));

@@ -16,10 +16,13 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectModel model)
+        public async Task<IActionResult> Create([FromBody] ProjectModel model)
         {
-            await _projectService.Create(model);
-            return NoContent();
+            var id = await _projectService.Create(model);
+            if (id == Guid.Empty)
+                return NoContent();
+            
+            return CreatedAtRoute("Get", new {id}, id);
         }
 
         [HttpPut("{id}")]
@@ -35,7 +38,7 @@ namespace qsLog.Presentetion.Controllers
             return Ok(_projectService.ListAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="Get")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var model = await _projectService.GetByID(id);

@@ -21,12 +21,12 @@ namespace qsLog.Applications.Services.Projects
             _projectRepository = projectRepository;
         }
 
-        public async Task Create(ProjectModel model)
+        public async Task<Guid> Create(ProjectModel model)
         {
             if (!model.IsValid())
             {
                 _validationService.AddErrors(model.Errors);
-                return;
+                return Guid.Empty;
             }
 
             try
@@ -34,10 +34,13 @@ namespace qsLog.Applications.Services.Projects
                 var project = new Project(model.Name);
                 await _projectRepository.CreateAsync(project);
                 await _uow.CommitAsync();
+
+                return project.Id;
             }
             catch (DomainException dx)
             {
                 _validationService.AddErrors("P01", dx.Message);
+                return Guid.Empty;
             }
         }
 
@@ -64,7 +67,8 @@ namespace qsLog.Applications.Services.Projects
 
             return new ProjectModel
             {
-                Name = project.Name
+                Name = project.Name,
+                ApiKey = project.ApiKey
             };
         }
 

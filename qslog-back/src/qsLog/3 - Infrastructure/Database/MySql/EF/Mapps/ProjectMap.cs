@@ -11,7 +11,7 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Mapps
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id").HasColumnType("char(36)").IsRequired();
             builder.Property(x => x.Name).HasColumnName("name").HasMaxLength(50).IsRequired();
-            builder.Property(x => x.ApiKey).HasColumnName("api-key").HasColumnType("char(36)").IsRequired();
+            builder.Property(x => x.ApiKey).HasColumnName("api_key").HasColumnType("char(36)").IsRequired();
            
 
             builder.ToTable("projects");

@@ -7,7 +7,7 @@ namespace qsLog.Applications.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task Create(ProjectModel model);
+        Task<Guid> Create(ProjectModel model);
         Task Update(ProjectModel model, Guid id);
         Task<ProjectModel> GetByID(Guid id);
         IList<ProjectListModel> ListAll();

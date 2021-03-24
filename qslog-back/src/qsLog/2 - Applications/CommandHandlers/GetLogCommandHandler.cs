@@ -8,7 +8,7 @@ using qsLog.Domains.Logs.Repository;
 
 namespace qsLog.Applications.CommandHandlers
 {
-    public class GetLogCommandHandler : IRequestHandler<GetLogCommand, LogModel>
+    public class GetLogCommandHandler : IRequestHandler<GetLogCommand, GetLogCommandOutput>
     {
         readonly ILogRepository _logRepository;
         readonly IValidationService _validationService;
@@ -19,22 +19,22 @@ namespace qsLog.Applications.CommandHandlers
             _validationService = validationService;
         }
 
-        public async Task<LogModel> Handle(GetLogCommand request, CancellationToken cancellationToken)
+        public async Task<GetLogCommandOutput> Handle(GetLogCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
             {
                 _validationService.AddErrors(request.Errors);
-                 return new LogModel();
+                 return new GetLogCommandOutput();
             }
 
             var log = await _logRepository.GetByIDAsync(request.Id);
             if (log == null)
             {
                  _validationService.AddErrors("01", "Log nao encontrado");
-                 return new LogModel();
+                 return new GetLogCommandOutput();
             }
 
-            return new LogModel
+            return new GetLogCommandOutput
             {
                 Description = log.Description,
                 Source = log.Source,

@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using qsLog.Infrastructure.Database.MySql.EF.Contexts;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using qsLog.Domains.Logs.Repository;
+using qsLog.Test.Integration.Logs;
 
 namespace qsLog.Test.Integration
 {
@@ -17,29 +19,27 @@ namespace qsLog.Test.Integration
     {
         private readonly HttpClient _client;
         private readonly string _api;
-        const string ENVIRONMENT = "Development";
+        const string ENVIRONMENT = "Staging";
         protected HostBase(string api)
         {
-            //  var configurationBuilder = new ConfigurationBuilder()
-            //     .AddJsonFile($"appsettings.{ENVIRONMENT}.json", optional: true)
-            //     .AddEnvironmentVariables();
+             var configurationBuilder = new ConfigurationBuilder()
+                .AddJsonFile($"appsettings.{ENVIRONMENT}.json", optional: true)
+                .AddEnvironmentVariables();
                 
             var factory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(builder => {
-                //    builder.UseConfiguration(configurationBuilder.Build());
+                       
+                    builder.UseConfiguration(configurationBuilder.Build());
 
+                    //Caso queira usar o teste em um banco de dados real, basta comentar o trecho de codigo abaixo e setar o Environment para o ambiente desejado.
                     builder.ConfigureServices(services =>
                     {
-                        // var context = services.SingleOrDefault(
-                        //     d => d.ServiceType ==
-                        //         typeof(DbContextOptions<LogContext>));
+                        services.AddScoped<ILogQueryRepository, LogQueryRepositoryInMemoryMock>();
 
-                        // services.Remove(context);
-
-                        // services.AddDbContext<LogContext>(options =>
-                        // {
-                        //     options.UseInMemoryDatabase("InMemoryDbForTesting");
-                        // });
+                        services.AddDbContext<LogContext>(options =>
+                        {
+                            options.UseInMemoryDatabase("InMemoryDbForTesting");
+                        });
                     });
                 });
 

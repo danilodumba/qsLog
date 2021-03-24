@@ -23,7 +23,7 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(LogModel model)
+        public async Task<IActionResult> Create([FromBody] LogModel model)
         {
             var command = new CreateLogCommand(model.Description, model.Source, model.LogType, model.ProjectID);
             var logID = await _mediator.Send(command);
@@ -44,21 +44,21 @@ namespace qsLog.Presentetion.Controllers
 
             var model = await _mediator.Send(command);
             if (model.Id == Guid.Empty) 
-                return NoContent();
+                return NotFound("Log nao encontrado para o ID informado");
 
             return Ok(model);
         }
 
-        [HttpGet("{dataInicial}/{dataFinal}")]
+        [HttpGet("{firstDate}/{endDate}")]
         public IActionResult List(
-            DateTime dataInicial,
-            DateTime dataFinal,
-            string nome,
+            DateTime firstDate,
+            DateTime endDate,
+            string description,
             LogTypeEnum? type,
             Guid? projectID)
         {
-            var periodo = new PeriodoVO(dataInicial, dataFinal);
-            return Ok(_logQueryRepository.List(periodo, nome, projectID, type));
+            var period = new PeriodoVO(firstDate, endDate);
+            return Ok(_logQueryRepository.List(period, description, projectID, type));
         }
     }
 }

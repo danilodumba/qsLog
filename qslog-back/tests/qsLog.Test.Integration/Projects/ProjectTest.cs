@@ -20,7 +20,7 @@ namespace qsLog.Test.Integration.Projects
             var model = ProjectMock.GetProjectModel();
 
             var response = await this.Post("", model);
-            Assert.True(response.IsSuccessStatusCode, response.StatusCode.ToString());
+            Assert.True(response.IsSuccessStatusCode, response.StatusCode.ToString());   
         }
 
         [Fact]
@@ -36,10 +36,8 @@ namespace qsLog.Test.Integration.Projects
         public async Task Deve_Alterar_Projeto()
         {
             var id = await this.CriarProjeto();
-            var model = new ProjectModel
-            {
-                Name = "Projeto Alterado"
-            };
+            var model = ProjectMock.GetProjectModel();
+            model.Name = "Alterado - " + model.Name;
 
             var response = await this.Put(id.ToString(), model);
             string error = "";

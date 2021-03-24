@@ -3,7 +3,7 @@ using qsLog.Domains.Logs;
 
 namespace qsLog.Applications.Models
 {
-    public class LogModel
+    public class GetLogCommandOutput
     {
         public Guid Id { get; set; }
         public string Description { get; set; }

@@ -5,7 +5,7 @@ using qsLog.Applications.Models;
 
 namespace qsLog.Applications.Commands
 {
-    public class GetLogCommand : Command<LogModel>
+    public class GetLogCommand : Command<GetLogCommandOutput>
     {
         public Guid Id { get; set; }
         public override bool IsValid()

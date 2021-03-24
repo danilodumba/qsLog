@@ -7,6 +7,6 @@ namespace qsLog.Domains.Logs.Repository
 {
     public interface ILogQueryRepository
     {
-        IEnumerable<LogListDTO> List(PeriodoVO periodo, string nome, Guid? projectID, LogTypeEnum? type);
+        IEnumerable<LogListDTO> List(PeriodoVO period, string description, Guid? projectID, LogTypeEnum? type);
     }
 }

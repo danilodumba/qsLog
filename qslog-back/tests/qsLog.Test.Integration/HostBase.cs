@@ -30,16 +30,16 @@ namespace qsLog.Test.Integration
 
                     builder.ConfigureServices(services =>
                     {
-                        var context = services.SingleOrDefault(
-                            d => d.ServiceType ==
-                                typeof(DbContextOptions<LogContext>));
+                        // var context = services.SingleOrDefault(
+                        //     d => d.ServiceType ==
+                        //         typeof(DbContextOptions<LogContext>));
 
-                        services.Remove(context);
+                        // services.Remove(context);
 
-                        services.AddDbContext<LogContext>(options =>
-                        {
-                            options.UseInMemoryDatabase("InMemoryDbForTesting");
-                        });
+                        // services.AddDbContext<LogContext>(options =>
+                        // {
+                        //     options.UseInMemoryDatabase("InMemoryDbForTesting");
+                        // });
                     });
                 });
 

@@ -12,9 +12,10 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
         
-        public LogContext(DbContextOptions options) : base(options)
+        public LogContext(DbContextOptions<LogContext> options)
+            : base(options)
         {
-
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

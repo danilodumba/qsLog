@@ -22,7 +22,7 @@ namespace qsLog.Test.Integration.Logs
         {
             var model = LogMock.GetLogModel();
 
-            var response = await this.Post("", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
 
             string error = "";
             if (!response.IsSuccessStatusCode)
@@ -38,9 +38,19 @@ namespace qsLog.Test.Integration.Logs
         {
             var model = new LogModel();
 
-            var response = await this.Post("", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
 
             Assert.True(response.StatusCode == HttpStatusCode.BadRequest, response.StatusCode.ToString()); 
+        }
+
+        [Fact]
+        public async Task Deve_Criar_Log_Unauthorized()
+        {
+            var model = new LogModel();
+
+            var response = await this.Post($"?api-key={Guid.NewGuid()}", model);
+
+            Assert.True(response.StatusCode == HttpStatusCode.Unauthorized, response.StatusCode.ToString()); 
         }
 
         [Fact]
@@ -96,8 +106,7 @@ namespace qsLog.Test.Integration.Logs
             {
                 Description = "Teste description",
                 Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
-                LogType = Domains.Logs.LogTypeEnum.Error,
-                ProjectID = await new ProjectTest().CriarProjeto()
+                LogType = Domains.Logs.LogTypeEnum.Error
             };
 
             await this.CriarLog(model);
@@ -125,8 +134,7 @@ namespace qsLog.Test.Integration.Logs
             {
                 Description = "Teste description",
                 Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
-                LogType = Domains.Logs.LogTypeEnum.Error,
-                ProjectID = await new ProjectTest().CriarProjeto()
+                LogType = Domains.Logs.LogTypeEnum.Error
             };
 
             await this.CriarLog(model);
@@ -147,35 +155,6 @@ namespace qsLog.Test.Integration.Logs
         }
 
         [Fact]
-        public async Task Deve_Retornar_Lista_Por_ProjectID()
-        {
-
-            var model = new LogModel
-            {
-                Description = "Teste description",
-                Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
-                LogType = Domains.Logs.LogTypeEnum.Error,
-                ProjectID = await new ProjectTest().CriarProjeto()
-            };
-
-            await this.CriarLog(model);
-            var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
-            var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
-
-            var response = await this.Get($"{dataInicial}/{dataFinal}/?projectID=" + model.ProjectID);
-            string error = "";
-            if (!response.IsSuccessStatusCode)
-            {
-                error = await response.Content.ReadAsStringAsync();
-            }
-
-            Assert.True(response.IsSuccessStatusCode, error); 
-
-            var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
-            Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
-        }
-
-        [Fact]
         public async Task Deve_Retornar_Lista_Por_LogType()
         {
 
@@ -183,8 +162,7 @@ namespace qsLog.Test.Integration.Logs
             {
                 Description = "Teste description",
                 Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
-                LogType = Domains.Logs.LogTypeEnum.Information,
-                ProjectID = await new ProjectTest().CriarProjeto()
+                LogType = Domains.Logs.LogTypeEnum.Information
             };
 
             await this.CriarLog(model);
@@ -209,7 +187,7 @@ namespace qsLog.Test.Integration.Logs
         {
             var model = LogMock.GetLogModel();
 
-            var response = await this.Post("", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -221,7 +199,7 @@ namespace qsLog.Test.Integration.Logs
 
         private async Task<Guid> CriarLog(LogModel model)
         {
-            var response = await this.Post("", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -230,5 +208,20 @@ namespace qsLog.Test.Integration.Logs
 
            return JsonConvert.DeserializeObject<Guid>(await response.Content.ReadAsStringAsync());
         }
+
+        private Guid ObterApiKeyProjeto()
+        {
+            var projetoTest = new ProjectTest();
+            var model = projetoTest.ObterProjeto().Result;
+            return model.ApiKey;
+        }
+
+        private Guid ObterIdProjeto()
+        {
+            var projetoTest = new ProjectTest();
+            var model = projetoTest.ObterProjeto().Result;
+            return model.Id;
+        }
+       
     }
 }

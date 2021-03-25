@@ -35,10 +35,10 @@ namespace qsLog.Applications.CommandHandlers
 
             try
             {
-                var project = await _projectRepository.GetByIDAsync(request.ProjectID);
+                var project = _projectRepository.GetByApiKey(request.ApiKey);
                 if (project == null)
                 {
-                    _validationService.AddErrors("01", "Projeto nao encontrado.");
+                    _validationService.AddErrors("01", "Projeto nao encontrado para a api-key informada.");
                     return await Task.FromResult(Guid.Empty);
                 }
 

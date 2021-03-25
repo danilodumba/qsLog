@@ -25,10 +25,10 @@ namespace qsLog.Test.Applications.Commands
         }
 
         [Fact]
-        public void Deve_Criar_Log_Com_Project_Invalido()
+        public void Deve_Criar_Log_Com_ApiKey_Invalido()
         {
             var command = CommandValido();
-            command.ProjectID = Guid.Empty;
+            command.ApiKey = Guid.Empty;
 
             Assert.False(command.IsValid());
         }

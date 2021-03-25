@@ -15,9 +15,19 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Repository
         {
         }
 
+        public bool ApiKeyExists(Guid apiKey)
+        {
+            return _dbSet.Any(x => x.ApiKey == apiKey);
+        }
+
         public IEnumerable<Project> ListAll()
         {
             return _dbSet.OrderBy(x => x.Name).AsNoTracking();
+        }
+
+        public Project GetByApiKey(Guid apiKey)
+        {
+            return _dbSet.FirstOrDefault(x => x.ApiKey == apiKey);
         }
     }
 }

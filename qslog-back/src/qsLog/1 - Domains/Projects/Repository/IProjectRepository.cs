@@ -6,6 +6,8 @@ namespace qsLog.Domains.Projects.Repository
 {
     public interface IProjectRepository: IRepository<Project, Guid>
     {
-         IEnumerable<Project> ListAll();
+        IEnumerable<Project> ListAll();
+        bool ApiKeyExists(Guid apiKey);
+        Project GetByApiKey(Guid apiKey);
     }
 }

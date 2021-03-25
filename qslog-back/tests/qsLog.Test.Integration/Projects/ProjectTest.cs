@@ -129,5 +129,21 @@ namespace qsLog.Test.Integration.Projects
 
             return JsonConvert.DeserializeObject<Guid>(await response.Content.ReadAsStringAsync());
         }
+
+        public async Task<ProjectModel> ObterProjeto()
+        {
+            var id = await this.CriarProjeto();
+
+            var response = await this.Get(id.ToString());
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Projeto nao encontrado");
+            }
+
+            var model = JsonConvert.DeserializeObject<ProjectModel>(await response.Content.ReadAsStringAsync());
+
+            return model;
+        }
     }
 }

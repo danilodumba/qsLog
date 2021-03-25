@@ -1,3 +1,4 @@
+using System.Globalization;
 using System;
 using System.Threading.Tasks;
 using MediatR;
@@ -6,7 +7,10 @@ using qsLibPack.Domain.ValueObjects.Br;
 using qsLog.Applications.Commands;
 using qsLog.Domains.Logs;
 using qsLog.Domains.Logs.Repository;
+using qsLog.Domains.Projects.Repository;
+using qsLog.Presentetion.Attributes;
 using qsLog.Presentetion.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace qsLog.Presentetion.Controllers
 {
@@ -15,17 +19,20 @@ namespace qsLog.Presentetion.Controllers
     {
         readonly IMediator _mediator;
         readonly ILogQueryRepository _logQueryRepository;
+        readonly IProjectRepository _projectRepository;
         public LogController(IMediator projectService,
-                             ILogQueryRepository logQueryRepository)
+                             ILogQueryRepository logQueryRepository, IProjectRepository projectRepository)
         {
             _mediator = projectService;
             _logQueryRepository = logQueryRepository;
+            _projectRepository = projectRepository;
         }
 
         [HttpPost]
+        [LogApiKey]
         public async Task<IActionResult> Create([FromBody] LogModel model)
         {
-            var command = new CreateLogCommand(model.Description, model.Source, model.LogType, model.ProjectID);
+            var command = new CreateLogCommand(model.Description, model.Source, model.LogType, this.GetProjectApiKey());
             var logID = await _mediator.Send(command);
             if (logID == Guid.Empty) 
                 return NoContent();
@@ -59,6 +66,19 @@ namespace qsLog.Presentetion.Controllers
         {
             var period = new PeriodoVO(firstDate, endDate);
             return Ok(_logQueryRepository.List(period, description, projectID, type));
+        }
+
+        private Guid GetProjectApiKey()
+        {
+            if (this.HttpContext.Request.Query.TryGetValue("api-key", out var apiKeyQuery))
+            {
+                if(Guid.TryParse(apiKeyQuery, out var apiKey))
+                {
+                    return apiKey;
+                }
+            }
+            
+            return Guid.Empty;
         }
     }
 }

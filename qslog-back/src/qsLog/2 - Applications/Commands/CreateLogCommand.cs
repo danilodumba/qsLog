@@ -12,18 +12,18 @@ namespace qsLog.Applications.Commands
             string description,
             string source,
             LogTypeEnum logType,
-            Guid projectID)
+            Guid apiKey)
         {
             Description = description;
             Source = source;
             LogType = logType;
-            ProjectID = projectID;
+            ApiKey = apiKey;
         }
 
         public string Description { get; set; }
         public string Source { get; set; }
         public LogTypeEnum LogType { get; set; }
-        public Guid ProjectID { get; set; }
+        public Guid ApiKey { get; set; }
 
         public override bool IsValid()
         {

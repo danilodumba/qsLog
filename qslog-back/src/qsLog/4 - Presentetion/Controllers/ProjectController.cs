@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using qsLog.Applications.Models;
 using qsLog.Applications.Services.Interfaces;
@@ -16,6 +17,7 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] ProjectModel model)
         {
             var id = await _projectService.Create(model);

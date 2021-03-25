@@ -33,7 +33,7 @@ namespace qsLog.Test.Applications.CommandHandlers
         public async Task Deve_Incluir_Log_Valido()
         {
             var logCommand = CreateLogCommandTest.CommandValido();
-            _projectRepository.GetByIDAsync(Arg.Any<Guid>()).Returns(await Task.FromResult(ProjectTest.GetProject()));
+            _projectRepository.GetByApiKey(Arg.Any<Guid>()).Returns(ProjectTest.GetProject());
 
             var result = await _handler.Handle(logCommand, CancellationToken.None);
 

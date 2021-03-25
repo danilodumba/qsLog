@@ -2,7 +2,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,12 +11,13 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using qsLog.Domains.Logs.Repository;
 using qsLog.Test.Integration.Logs;
+using qsLog.Presentetion.Models;
 
 namespace qsLog.Test.Integration
 {
     public abstract class HostBase
     {
-        private readonly HttpClient _client;
+        protected readonly HttpClient _client;
         private readonly string _api;
         const string ENVIRONMENT = "Staging";
         protected HostBase(string api)
@@ -36,6 +36,12 @@ namespace qsLog.Test.Integration
                     {
                         services.AddScoped<ILogQueryRepository, LogQueryRepositoryInMemoryMock>();
 
+                        var context = services.SingleOrDefault(
+                            d => d.ServiceType ==
+                                typeof(DbContextOptions<LogContext>));
+
+                        services.Remove(context);
+
                         services.AddDbContext<LogContext>(options =>
                         {
                             options.UseInMemoryDatabase("InMemoryDbForTesting");
@@ -47,26 +53,90 @@ namespace qsLog.Test.Integration
             _api = api;
         }
 
-        protected async Task<HttpResponseMessage> Get(string path)
+        protected async Task<HttpResponseMessage> Get(string caminho, bool usarToken = true)
         {
-            var api = _api +"/"+ path;
+            if (usarToken)
+            {
+               await GerarCabecalhoBearerToken();
+            }
+
+            var api = _api +"/"+ caminho;
             return await _client.GetAsync(api);
         }
 
-        protected async Task<HttpResponseMessage> Post(string path, object objectJson)
+        protected async Task<HttpResponseMessage> Post(string caminho, object objetoJson, bool usarToken = true)
         {
-            var api = _api + "/" + path;
-            var json =  JsonConvert.SerializeObject(objectJson);
+            if (usarToken)
+            {
+               await GerarCabecalhoBearerToken();
+            }
+
+            var api = _api + "/" + caminho;
+            var json =  JsonConvert.SerializeObject(objetoJson);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             return await _client.PostAsync(api, content);
         }
 
-        protected async Task<HttpResponseMessage> Put(string path, object objectJson)
+        protected async Task<HttpResponseMessage> Put(string caminho, object objetoJson, bool usarToken = true)
         {
-            var api = _api + "/" + path;
-            var json =  JsonConvert.SerializeObject(objectJson);
+            if (usarToken)
+            {
+               await GerarCabecalhoBearerToken();
+            }
+
+            var api = _api + "/" + caminho;
+            var json =  JsonConvert.SerializeObject(objetoJson);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             return await _client.PutAsync(api, content);
+        }
+
+        protected async Task Logar(LoginModel model)
+        {
+            var json =  JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync("api/auth", content);
+
+            response.EnsureSuccessStatusCode();
+
+            var usuario = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+            string token = usuario.token; 
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        }
+
+        private async Task GerarCabecalhoBearerToken()
+        {
+            var token = await Logar();
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        }
+
+        private async Task<string> Logar()
+        {
+            await ValidarUsuarioAdmin();
+
+            var loginModel = new LoginModel
+            {
+                UserName = "admin",
+                Password = "admin"
+            };
+
+            var json =  JsonConvert.SerializeObject(loginModel);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync("api/auth", content);
+
+            response.EnsureSuccessStatusCode();
+
+            var usuario = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+
+            return usuario.token;
+        }
+        
+        private async Task ValidarUsuarioAdmin()
+        {
+            var api = "api/user/admin";
+            var response = await _client.GetAsync(api);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

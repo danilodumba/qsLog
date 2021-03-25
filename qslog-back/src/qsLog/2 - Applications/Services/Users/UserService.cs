@@ -37,9 +37,31 @@ namespace qsLog.Applications.Services.Users
 
             try
             {
-                var user = new User(model.Name, model.UserName, model.Email, new qsLibPack.Domain.ValueObjects.PasswordVO(model.Password, model.ConfirmPassword), model.Administrator);
+                var user = new User(model.Name, model.UserName, model.Email, new PasswordVO(model.Password, model.ConfirmPassword), model.Administrator);
                 await _userRepository.CreateAsync(user);
                 await _uow.CommitAsync();
+
+                return user.Id;
+            }
+            catch (DomainException dx)
+            {
+                _validationService.AddErrors("U01", dx.Message);
+                return Guid.Empty;
+            }
+        }
+
+        public async Task<Guid> CreateAdminUser()
+        {
+            if (_userRepository.Count() > 0)
+            {
+                return Guid.Empty;
+            }
+
+            try
+            {
+                var user = new User("admin", "admin", "admin@admin.com", new PasswordVO("admin", "admin"), true);
+                await _userRepository.CreateAsync(user);
+                _uow.Commit();
 
                 return user.Id;
             }

@@ -75,6 +75,12 @@ namespace qsLog.Domains.Users
             this.Password = this.CriptPassword("123456");
         }
 
+        public bool PasswordEquals(string password)
+        {
+            var criptPassword = CriptPassword(password);
+            return this.Password.Equals(criptPassword);
+        }
+
         protected override void Validate()
         {
             this.Id.NotNullOrEmpty("Id nao gerado para o projeto.");

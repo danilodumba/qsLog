@@ -16,6 +16,11 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Repository
         {
         }
 
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
+
         public bool ExistsUserName(string userName)
         {
             return _dbSet.Any(x => x.UserName == userName);

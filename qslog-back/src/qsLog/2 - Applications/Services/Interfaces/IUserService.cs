@@ -15,5 +15,6 @@ namespace qsLog.Applications.Services.Interfaces
         Task<IList<UserListModel>> GetByName(string name);
         Task ChangePassoword(Guid id, string oldPassword, PasswordVO newPassword);
         Task ResetPassword(Guid id);
+        Task<Guid> CreateAdminUser();
     }
 }

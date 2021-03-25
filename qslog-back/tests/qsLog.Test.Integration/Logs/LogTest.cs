@@ -22,7 +22,7 @@ namespace qsLog.Test.Integration.Logs
         {
             var model = LogMock.GetLogModel();
 
-            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model, false);
 
             string error = "";
             if (!response.IsSuccessStatusCode)
@@ -187,7 +187,7 @@ namespace qsLog.Test.Integration.Logs
         {
             var model = LogMock.GetLogModel();
 
-            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model, false);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -199,7 +199,7 @@ namespace qsLog.Test.Integration.Logs
 
         private async Task<Guid> CriarLog(LogModel model)
         {
-            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model);
+            var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model, false);
 
             if (!response.IsSuccessStatusCode)
             {

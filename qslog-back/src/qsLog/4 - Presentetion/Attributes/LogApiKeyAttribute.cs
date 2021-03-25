@@ -12,7 +12,7 @@ namespace qsLog.Presentetion.Attributes
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {   
-            if (!context.HttpContext.Request.Query.TryGetValue("api-key", out var extractedApiKey))
+            if (!context.HttpContext.Request.Query.TryGetValue("api-key", out var queryApiKey))
             {
                 context.Result = new ContentResult()
                 {
@@ -24,7 +24,7 @@ namespace qsLog.Presentetion.Attributes
 
             var projectRepository = context.HttpContext.RequestServices.GetService(typeof(IProjectRepository)) as IProjectRepository;
             var canEnter = false;
-            if (Guid.TryParse(extractedApiKey, out var apiKey))
+            if (Guid.TryParse(queryApiKey, out var apiKey))
             {
                 canEnter = projectRepository.ApiKeyExists(apiKey);
             }

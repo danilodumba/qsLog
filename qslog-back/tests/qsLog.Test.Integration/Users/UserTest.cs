@@ -35,6 +35,20 @@ namespace qsLog.Test.Integration.Users
         }
 
         [Fact]
+        public async Task Deve_Criar_Um_Usuario_Forbidden()
+        {
+            var model = await this.CriarUsuarioNaoAdmin();
+            await this.Logar(new Presentetion.Models.LoginModel
+            {
+                UserName = model.UserName,
+                Password = model.Password
+            });
+
+            var response = await this.Post("", model, false);
+            Assert.True(response.StatusCode == HttpStatusCode.Forbidden, response.StatusCode.ToString());
+        }
+
+        [Fact]
         public async Task Deve_Buscar_Um_Usuario_Por_Id()
         {
             var id = await this.CriarUsuario();
@@ -89,6 +103,7 @@ namespace qsLog.Test.Integration.Users
             Assert.True(users.Count > 0, $"Esperado maior que zero.");
         }
 
+
         private async Task<Guid> CriarUsuario()
         {
             var model = UserMock.GetUserModel();
@@ -99,6 +114,33 @@ namespace qsLog.Test.Integration.Users
                 throw new Exception("Erro ao criar o usuario");
             }
             return JsonConvert.DeserializeObject<Guid>(await response.Content.ReadAsStringAsync());
+        }
+
+        private async Task<UserModel> CriarUsuarioNaoAdmin()
+        {
+            var model = UserMock.GetUserModel();
+            model.Administrator = false;
+
+            var response = await this.Post("", model);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Erro ao criar o usuario");
+            }
+           
+            return model;
+        }
+
+
+        public async Task<UserModel> CriarUsuarioRetornandoModel()
+        {
+            var model = UserMock.GetUserModel();
+            var response = await this.Post("", model);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Erro ao criar o usuario");
+            }
+
+            return model;
         }
     }
 }

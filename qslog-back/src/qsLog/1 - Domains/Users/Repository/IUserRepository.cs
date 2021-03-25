@@ -7,6 +7,7 @@ namespace qsLog.Domains.Users.Repository
 {
     public interface IUserRepository: IRepository<User, Guid>
     {
+        int Count();
         IEnumerable<User> ListAll();
         Task<User> GetByUserName(string userName);
         bool ExistsUserName(string userName);

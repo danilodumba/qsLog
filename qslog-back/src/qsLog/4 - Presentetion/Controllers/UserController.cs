@@ -1,5 +1,7 @@
+using System.Data;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using qsLibPack.Domain.ValueObjects;
 using qsLog.Applications.Models;
@@ -8,6 +10,7 @@ using qsLog.Presentetion.Models;
 
 namespace qsLog.Presentetion.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     public class UserController: ApiController
     {
@@ -25,6 +28,14 @@ namespace qsLog.Presentetion.Controllers
                 return NoContent();
             
             return CreatedAtRoute("GetById", new {id}, id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("admin")]
+        public async Task<IActionResult> ValidateAdminUser()
+        {
+            await _userService.CreateAdminUser();
+            return NoContent();
         }
 
         [HttpPut("{id}")]

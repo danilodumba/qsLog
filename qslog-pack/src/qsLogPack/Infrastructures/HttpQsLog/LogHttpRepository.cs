@@ -12,8 +12,7 @@ namespace qsLogPack.Infrastructures.HttpQsLog
     internal class LogHttpRepository : ILogRepository
     {
         private readonly QsLogSettings _logSettings;
-        private readonly ILogTxtRespository _logTxtRepository;
-        public LogHttpRepository(IOptions<QsLogSettings> logSettings, ILogTxtRespository logTxtRepository)
+        public LogHttpRepository(IOptions<QsLogSettings> logSettings)
         {
             if (logSettings == null)
             {
@@ -21,7 +20,6 @@ namespace qsLogPack.Infrastructures.HttpQsLog
             }
 
             _logSettings = logSettings.Value;
-            _logTxtRepository = logTxtRepository;
         }
 
         public async Task<Guid> Send(LogModel model)
@@ -33,35 +31,28 @@ namespace qsLogPack.Infrastructures.HttpQsLog
                 
                 var json = JsonConvert.SerializeObject(model);
                 var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(_logSettings.LogApi + "/api-key=" + _logSettings.ApiKey, content);
+                var response = await client.PostAsync(_logSettings.LogApi + "/?api-key=" + _logSettings.ApiKey, content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var logID = JsonConvert.DeserializeObject<Guid>(await response.Content.ReadAsStringAsync());
 
-                    if (_logSettings.GenerateLogTxt)
-                    {
-                        _logTxtRepository.Create(model.Source);
-                    }
-
                     return logID;
                 }
 
                 var error = await response.Content.ReadAsStringAsync();
-                _logTxtRepository.Create(error);
+                throw new LogException(error);
             }
 
             catch (Exception ex)
             {
-                 _logTxtRepository.Create(ex);
-                throw;
+                throw new LogException("Erro ao conectar a API do log", ex);
             }
+
             finally
             {
                 client.Dispose();
             }
-
-            return Guid.Empty;
         }
 
         private void ValidateSettings()

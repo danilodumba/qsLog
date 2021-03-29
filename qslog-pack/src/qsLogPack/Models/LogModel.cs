@@ -9,6 +9,12 @@ namespace qsLogPack.Models
             LogType = logType;
         }
 
+        public LogModel(string description, LogTypeEnum logType)
+        {
+            Description = description;
+            LogType = logType;
+        }
+
         public string Description { get; set; }
         public string Source { get; set; }
         public LogTypeEnum LogType { get; set; }

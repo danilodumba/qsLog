@@ -24,10 +24,10 @@ jobs:
       run: ls
 
     - name: Build with dotnet
-      run: dotnet build qslog-back/src/qslog --configuration Release
+      run: dotnet build qslog-back/src/qsLog --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish qslog-back/src/qslog -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish qslog-back/src/qsLog -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp

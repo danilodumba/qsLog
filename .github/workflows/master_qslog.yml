@@ -21,10 +21,10 @@ jobs:
         dotnet-version: '5.0.x'
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build qslog-back/src/qslog --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish qslog-back/src/qslog -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
     - name: Deploy to Azure Web App
 id: deploy-to-webapp

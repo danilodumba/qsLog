@@ -20,6 +20,9 @@ jobs:
       with:
         dotnet-version: '5.0.x'
 
+    - name: Describrir pastas
+      run: ls
+
     - name: Build with dotnet
       run: dotnet build qslog-back/src/qslog --configuration Release
 

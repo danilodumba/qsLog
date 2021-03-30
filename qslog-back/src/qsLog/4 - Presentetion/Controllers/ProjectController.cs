@@ -17,7 +17,6 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] ProjectModel model)
         {
             var id = await _projectService.Create(model);

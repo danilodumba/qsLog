@@ -54,10 +54,10 @@ namespace qsLog
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "qsLog v1"));
             }
 
-            if (env.IsProduction())
-            {
-                app.UseHttpsRedirection();
-            }
+            // if (env.IsProduction())
+            // {
+            //     app.UseHttpsRedirection();
+            // }
 
             app.UseRouting();
 

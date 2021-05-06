@@ -6,7 +6,7 @@ namespace qsLog.Domains.Projects
 {
     public class Project : AggregateRoot<Guid>
     {
-        protected Project() {}
+        public Project() {}
         public Project(string name)
         {
             Name = name;

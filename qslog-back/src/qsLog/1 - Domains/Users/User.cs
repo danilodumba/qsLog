@@ -9,7 +9,7 @@ namespace qsLog.Domains.Users
 {
     public class User : AggregateRoot<Guid>
     {
-        protected User() {}
+        public User() {}
 
         public User(string name, string userName, EmailVO email, PasswordVO password, bool administrator)
         {

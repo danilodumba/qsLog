@@ -61,7 +61,7 @@ namespace qsLog.Applications.Services.Users
             {
                 var user = new User("admin", "admin", "admin@admin.com", new PasswordVO("admin", "admin"), true);
                 await _userRepository.CreateAsync(user);
-                _uow.Commit();
+                await _uow.CommitAsync();
 
                 return user.Id;
             }
@@ -126,8 +126,8 @@ namespace qsLog.Applications.Services.Users
                 user.SetAdministrator(model.Administrator);
                 user.SetUserName(model.UserName);
 
-                _userRepository.Update(user);
-                _uow.Commit();
+                await _userRepository.UpdateAsync(user);
+                await _uow.CommitAsync();
             }
             catch (DomainException dx)
             {
@@ -143,8 +143,8 @@ namespace qsLog.Applications.Services.Users
             try
             {
                 user.ChangePassoword(oldPassword, newPassword);
-                _userRepository.Update(user);
-                _uow.Commit();
+                await _userRepository.UpdateAsync(user);
+                await _uow.CommitAsync();
             }
             catch (DomainException dx)
             {
@@ -160,8 +160,8 @@ namespace qsLog.Applications.Services.Users
             try
             {
                 user.ResetPassword();
-                _userRepository.Update(user);
-                _uow.Commit();
+                await _userRepository.UpdateAsync(user);
+                await _uow.CommitAsync();
             }
             catch (DomainException dx)
             {

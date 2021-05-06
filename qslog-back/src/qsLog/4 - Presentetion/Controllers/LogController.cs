@@ -1,4 +1,3 @@
-using System.Globalization;
 using System;
 using System.Threading.Tasks;
 using MediatR;
@@ -10,7 +9,6 @@ using qsLog.Domains.Logs.Repository;
 using qsLog.Domains.Projects.Repository;
 using qsLog.Presentetion.Attributes;
 using qsLog.Presentetion.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace qsLog.Presentetion.Controllers
 {

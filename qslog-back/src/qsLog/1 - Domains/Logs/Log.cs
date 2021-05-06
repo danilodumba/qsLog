@@ -7,7 +7,7 @@ namespace qsLog.Domains.Logs
 {
     public class Log : AggregateRoot<Guid>
     {
-        protected Log(){}
+        public Log(){}
         public Log(string description, string source, LogTypeEnum logType, Project project)
         {
             Description = description;

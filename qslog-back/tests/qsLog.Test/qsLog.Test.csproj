@@ -23,8 +23,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\qsLog\qsLog.csproj" />
   </ItemGroup>
-   <!-- <ItemGroup>
-    <ProjectReference Include="..\..\..\..\qsLibPack\src\qsLibPack\qsLibPack.csproj" />
-  </ItemGroup> -->
-
 </Project>

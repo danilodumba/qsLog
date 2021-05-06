@@ -87,8 +87,8 @@ namespace qsLog.Test.Applications.Services
             await service.Update(model, model.Id);
 
             Assert.True(_validationService.IsValid());
-            _userRepository.Received().Update(Arg.Any<User>());
-            _uow.Received().Commit();
+            await _userRepository.Received().UpdateAsync(Arg.Any<User>());
+            await _uow.Received().CommitAsync();
         }
 
         [Fact]
@@ -100,8 +100,8 @@ namespace qsLog.Test.Applications.Services
             await service.ResetPassword(Guid.NewGuid());
 
             Assert.True(_validationService.IsValid());
-            _userRepository.Received().Update(Arg.Any<User>());
-            _uow.Received().Commit();
+            await _userRepository.Received().UpdateAsync(Arg.Any<User>());
+            await _uow.Received().CommitAsync();
         }
     }
 }

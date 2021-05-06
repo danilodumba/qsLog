@@ -28,7 +28,7 @@ namespace qsLog.Applications.CommandHandlers
 
         public override async Task<Guid> Handle(CreateLogCommand request, CancellationToken cancellationToken)
         {
-            if (!this.CommandIsValid(request))
+            if (!this.IsValidCommand(request))
             {
                 return await Task.FromResult(Guid.Empty);
             }

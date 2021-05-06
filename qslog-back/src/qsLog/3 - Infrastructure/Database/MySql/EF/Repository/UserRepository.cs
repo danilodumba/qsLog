@@ -16,7 +16,7 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Repository
         {
         }
 
-        public int Count()
+        public long Count()
         {
             return _dbSet.Count();
         }

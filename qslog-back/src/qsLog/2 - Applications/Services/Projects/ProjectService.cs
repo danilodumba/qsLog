@@ -95,8 +95,8 @@ namespace qsLog.Applications.Services.Projects
                 }
 
                 project.SetName(model.Name);
-                _projectRepository.Update(project);
-                _uow.Commit();
+                await _projectRepository.UpdateAsync(project);
+                await _uow.CommitAsync();
             }
             catch (DomainException dx)
             {

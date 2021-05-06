@@ -1,5 +1,4 @@
 using System;
-using Microsoft.EntityFrameworkCore;
 using qsLibPack.Repositories.EF;
 using qsLog.Domains.Logs;
 using qsLog.Domains.Logs.Repository;

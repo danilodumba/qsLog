@@ -24,7 +24,7 @@ namespace qsLog.Test.Integration
         {
              var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.{ENVIRONMENT}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddEnvironmentVariables(ENVIRONMENT);
                 
             var factory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(builder => {
@@ -32,21 +32,21 @@ namespace qsLog.Test.Integration
                     builder.UseConfiguration(configurationBuilder.Build());
 
                     //Caso queira usar o teste em um banco de dados real, basta comentar o trecho de codigo abaixo e setar o Environment para o ambiente desejado.
-                    builder.ConfigureServices(services =>
-                    {
-                        services.AddScoped<ILogQueryRepository, LogQueryRepositoryInMemoryMock>();
+                    // builder.ConfigureServices(services =>
+                    // {
+                    //     services.AddScoped<ILogQueryRepository, LogQueryRepositoryInMemoryMock>();
 
-                        var context = services.SingleOrDefault(
-                            d => d.ServiceType ==
-                                typeof(DbContextOptions<LogContext>));
+                    //     var context = services.SingleOrDefault(
+                    //         d => d.ServiceType ==
+                    //             typeof(DbContextOptions<LogContext>));
 
-                        services.Remove(context);
+                    //     services.Remove(context);
 
-                        services.AddDbContext<LogContext>(options =>
-                        {
-                            options.UseInMemoryDatabase("InMemoryDbForTesting");
-                        });
-                    });
+                    //     services.AddDbContext<LogContext>(options =>
+                    //     {
+                    //         options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    //     });
+                    // });
                 });
 
             _client = factory.CreateClient();

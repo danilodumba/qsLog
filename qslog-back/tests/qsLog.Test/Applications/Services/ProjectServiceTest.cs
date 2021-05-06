@@ -72,8 +72,8 @@ namespace qsLog.Test.Applications.Services
             var project = ProjectModelTest.GetProject();
             await service.Update(project, Guid.NewGuid());
 
-            _projectRepository.Received().Update(Arg.Any<Project>());
-            _uow.Received().Commit();
+            await _projectRepository.Received().UpdateAsync(Arg.Any<Project>());
+            await _uow.Received().CommitAsync();
             Assert.True(_validationService.IsValid());
         }
 
@@ -84,8 +84,8 @@ namespace qsLog.Test.Applications.Services
             var model = new ProjectModel();
             await service.Update(model, Guid.NewGuid());
 
-            _projectRepository.DidNotReceive().Update(Arg.Any<Project>());
-            _uow.DidNotReceive().Commit();
+            await _projectRepository.DidNotReceive().UpdateAsync(Arg.Any<Project>());
+            await _uow.DidNotReceive().CommitAsync();
             Assert.False(_validationService.IsValid());
         }
 
@@ -99,8 +99,8 @@ namespace qsLog.Test.Applications.Services
             await service.Update(model, Guid.NewGuid());
 
             Assert.False(_validationService.IsValid());
-            _projectRepository.DidNotReceive().Update(Arg.Any<Project>());
-            _uow.DidNotReceive().Commit();
+            await _projectRepository.DidNotReceive().UpdateAsync(Arg.Any<Project>());
+            await _uow.DidNotReceive().CommitAsync();
         }
 
         [Fact]
@@ -114,8 +114,8 @@ namespace qsLog.Test.Applications.Services
             await service.Update(model, Guid.NewGuid());
 
             Assert.False(_validationService.IsValid());
-            _projectRepository.DidNotReceive().Update(Arg.Any<Project>());
-            _uow.DidNotReceive().Commit();
+            await _projectRepository.DidNotReceive().UpdateAsync(Arg.Any<Project>());
+            await _uow.DidNotReceive().CommitAsync();
         }
     }
 }

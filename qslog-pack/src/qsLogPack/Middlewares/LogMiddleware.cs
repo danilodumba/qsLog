@@ -39,7 +39,7 @@ namespace qsLogPack.Middlewares
             }
             catch (LogException lx)
             {
-                error = $"Nao foi possivel logar o erro no sistema de log. Veja o arquivo de log para mais detalhes. Error: {ex.Message}, erro Log: {lx.Message}";
+                error = $"Nao foi possivel logar o erro no sistema de log. Veja o arquivo local de log para mais detalhes. Error: {ex.Message}, erro Log: {lx.Message}";
             }
 
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

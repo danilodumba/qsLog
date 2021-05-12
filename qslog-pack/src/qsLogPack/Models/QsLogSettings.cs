@@ -7,5 +7,7 @@ namespace qsLogPack.Models
         public string PathLogTxt { get; set; }
         public bool GenerateLogTxt { get; set; } = true;
         public bool UseHabbitMQ { get; set; } = false;
+        public string RabbitConnection { get; set; }
+        public string Queue { get; set; }
     }
 }

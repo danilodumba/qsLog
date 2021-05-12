@@ -1,6 +1,8 @@
+using qsLogPack.Events;
+
 namespace qsLogPack.Models
 {
-    internal class LogModel
+    public class LogModel: Message
     {
         public LogModel(string description, string source, LogTypeEnum logType)
         {
@@ -18,12 +20,5 @@ namespace qsLogPack.Models
         public string Description { get; set; }
         public string Source { get; set; }
         public LogTypeEnum LogType { get; set; }
-    }
-
-    internal enum LogTypeEnum
-    {
-        Information = 1,
-        Warning = 2,
-        Error = 3
     }
 }

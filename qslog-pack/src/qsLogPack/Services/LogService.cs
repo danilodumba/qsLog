@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using qsLogPack.Exceptions;
 using qsLogPack.Infrastructures.Interfaces;
 using qsLogPack.Models;
@@ -14,7 +15,9 @@ namespace qsLogPack.Services
         readonly ILogRepository _logRepository;
         readonly ILogTxtRespository _logTxtRepository;
 
-        public LogService(IOptions<QsLogSettings> logSettings, ILogRepository logRepository, ILogTxtRespository logTxtRepository)
+        public LogService(IOptions<QsLogSettings> logSettings,
+                          ILogRepository logRepository,
+                          ILogTxtRespository logTxtRepository)
         {
             if (logSettings == null)
             {
@@ -26,12 +29,7 @@ namespace qsLogPack.Services
             _logTxtRepository = logTxtRepository;
         }
 
-        public async Task<Guid> Error(Exception ex)
-        {
-            return await Error(null, ex);
-        }
-
-        public async Task<Guid> Error(string description, Exception ex)
+        public async Task<Guid> Error(Exception ex, string description = null)
         {
             var model = new LogModel(description ?? ex.Message, this.GetSource(ex), LogTypeEnum.Error);
             try
@@ -105,12 +103,7 @@ namespace qsLogPack.Services
         {
             if (ex == null) return string.Empty;
             
-            var source = ex.Message + System.Environment.NewLine;
-            if (ex.InnerException != null)
-            {
-                source = GetSource(ex.InnerException);
-            }
-
+            var source = JsonConvert.SerializeObject(ex);
             return source;
         }
 

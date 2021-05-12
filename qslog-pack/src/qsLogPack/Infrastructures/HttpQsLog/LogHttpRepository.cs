@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace qsLogPack.Infrastructures.HttpQsLog
 {
-    internal class LogHttpRepository : ILogRepository
+    internal class LogHttpRepository : ILogRepository, IDisposable
     {
         private readonly QsLogSettings _logSettings;
         public LogHttpRepository(IOptions<QsLogSettings> logSettings)
@@ -28,7 +28,6 @@ namespace qsLogPack.Infrastructures.HttpQsLog
             using var client = new HttpClient();
             try
             {
-                
                 var json = JsonConvert.SerializeObject(model);
                 var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(_logSettings.LogApi + "/?api-key=" + _logSettings.ApiKey, content);
@@ -48,11 +47,15 @@ namespace qsLogPack.Infrastructures.HttpQsLog
             {
                 throw new LogException("Erro ao conectar a API do log", ex);
             }
-
             finally
             {
                 client.Dispose();
             }
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
 
         private void ValidateSettings()

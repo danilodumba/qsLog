@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -23,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\qsLog\qsLog.csproj" />
+    <ProjectReference Include="..\..\src\qsLog.Api\qsLog.Api.csproj" />
   </ItemGroup>
 
 </Project>

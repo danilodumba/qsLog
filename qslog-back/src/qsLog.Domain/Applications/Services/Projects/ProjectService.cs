@@ -67,6 +67,7 @@ namespace qsLog.Applications.Services.Projects
 
             return new ProjectModel
             {
+                Id = project.Id,
                 Name = project.Name,
                 ApiKey = project.ApiKey
             };

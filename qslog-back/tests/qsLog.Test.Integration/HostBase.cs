@@ -12,23 +12,27 @@ using Microsoft.Extensions.Configuration;
 using qsLog.Domains.Logs.Repository;
 using qsLog.Test.Integration.Logs;
 using qsLog.Presentetion.Models;
+using System;
 
 namespace qsLog.Test.Integration
 {
-    public abstract class HostBase
+    public abstract class HostBase: IDisposable
     {
         protected readonly HttpClient _client;
         private readonly string _api;
         const string ENVIRONMENT = "Staging";
         protected HostBase(string api)
         {
-             var configurationBuilder = new ConfigurationBuilder()
+            _api = api;
+            if (_client != null) return;
+
+            var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.{ENVIRONMENT}.json", optional: true)
                 .AddEnvironmentVariables(ENVIRONMENT);
                 
             var factory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(builder => {
-                       
+                    builder.UseEnvironment(ENVIRONMENT);
                     builder.UseConfiguration(configurationBuilder.Build());
 
                     //Caso queira usar o teste em um banco de dados real, basta comentar o trecho de codigo abaixo e setar o Environment para o ambiente desejado.
@@ -50,7 +54,7 @@ namespace qsLog.Test.Integration
                 });
 
             _client = factory.CreateClient();
-            _api = api;
+            
         }
 
         protected async Task<HttpResponseMessage> Get(string caminho, bool usarToken = true)
@@ -137,6 +141,14 @@ namespace qsLog.Test.Integration
             var api = "api/user/admin";
             var response = await _client.GetAsync(api);
             response.EnsureSuccessStatusCode();
+        }
+
+        public void Dispose()
+        {
+            if (_client != null)
+            {
+                _client.Dispose();
+            }
         }
     }
 }

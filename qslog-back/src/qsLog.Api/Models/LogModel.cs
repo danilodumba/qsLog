@@ -9,4 +9,14 @@ namespace qsLog.Presentetion.Models
         public string Source { get; set; }
         public LogTypeEnum LogType { get; set; }
     }
+
+    public class LogMessage
+    {
+        public Guid? Id { get; set; }
+        public Guid? ApiKey { get; set; }
+        public string Description { get; set; }
+        public string Teste { get; set; }
+        public LogTypeEnum? LogType { get; set; }
+        public DateTime? Date { get; set; }
+    }
 }

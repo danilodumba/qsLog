@@ -35,6 +35,7 @@ namespace qsLog.Applications.CommandHandlers
 
             try
             {
+                var projects = _projectRepository.ListAll();
                 var project = _projectRepository.GetByApiKey(request.ApiKey);
                 if (project == null)
                 {

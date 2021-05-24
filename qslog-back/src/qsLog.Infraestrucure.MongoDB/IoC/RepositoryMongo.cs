@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson.Serialization;
 using qsLibPack.Repositories.Mongo.IoC;
 using qsLog.Domains.Logs.Repository;
+using qsLog.Domains.Projects;
 using qsLog.Domains.Projects.Repository;
 using qsLog.Domains.Users.Repository;
 using qsLog.Infrastructure.Database.MongoDB.QueryRepository;

@@ -4,6 +4,7 @@ namespace qsLogPack.Models
 {
     public class LogModel: Message
     {
+        public LogModel() {}
         public LogModel(string description, string source, LogTypeEnum logType)
         {
             Description = description;

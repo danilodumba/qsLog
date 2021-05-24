@@ -27,6 +27,7 @@
     <ProjectReference Include="..\qsLog.Domain\qsLog.Domain.csproj" />
     <ProjectReference Include="..\qsLog.Infraestrucure.MongoDB\qsLog.Infraestrucure.MongoDB.csproj" />
     <ProjectReference Include="..\qsLog.Infraestrucure.MySql\qsLog.Infraestrucure.MySql.csproj" />
+    <ProjectReference Include="..\qsLog.Infrastructure.RabbitMQ\qsLog.Infrastructure.RabbitMQ.csproj" />
     <ProjectReference Include="..\qsLog.Pack\qsLogPack.csproj" />
   </ItemGroup>
 

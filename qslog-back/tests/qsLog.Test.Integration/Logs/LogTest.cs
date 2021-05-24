@@ -22,6 +22,7 @@ namespace qsLog.Test.Integration.Logs
         {
             var model = LogMock.GetLogModel();
 
+            //var response = await this.Post($"?api-key=e4bde140-3da5-e549-827c-a007a85c541a", model, false);
             var response = await this.Post($"?api-key={this.ObterApiKeyProjeto()}", model, false);
 
             string error = "";
@@ -98,66 +99,91 @@ namespace qsLog.Test.Integration.Logs
             Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
         }
 
+        [Fact]
+        public async Task Deve_Retornar_Lista_Por_Description()
+        {
+            var model = new LogModel
+            {
+                Description = "Teste description",
+                Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
+                LogType = Domains.Logs.LogTypeEnum.Error
+            };
+
+            await this.CriarLog(model);
+            var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
+            var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
+
+            var response = await this.Get($"{dataInicial}/{dataFinal}/?description=description");
+            string error = "";
+            if (!response.IsSuccessStatusCode)
+            {
+                error = await response.Content.ReadAsStringAsync();
+            }
+
+            Assert.True(response.IsSuccessStatusCode, error); 
+
+            var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
+            Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero para o filtro de descricao.");
+        }
+
+        [Fact]
+        public async Task Deve_Retornar_Lista_Por_Source()
+        {
+
+            var model = new LogModel
+            {
+                Description = "Teste description",
+                Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
+                LogType = Domains.Logs.LogTypeEnum.Error
+            };
+
+            await this.CriarLog(model);
+            var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
+            var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
+
+            var response = await this.Get($"{dataInicial}/{dataFinal}/?description=Source");
+            string error = "";
+            if (!response.IsSuccessStatusCode)
+            {
+                error = await response.Content.ReadAsStringAsync();
+            }
+
+            Assert.True(response.IsSuccessStatusCode, error); 
+
+            var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
+            Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
+        }
+
+        [Fact]
+        public async Task Deve_Retornar_Lista_Por_LogType()
+        {
+            var model = new LogModel
+            {
+                Description = "Teste description",
+                Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
+                LogType = Domains.Logs.LogTypeEnum.Information
+            };
+
+            await this.CriarLog(model);
+            var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
+            var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
+
+            var response = await this.Get($"{dataInicial}/{dataFinal}/?type=" + model.LogType);
+            string error = "";
+            if (!response.IsSuccessStatusCode)
+            {
+                error = await response.Content.ReadAsStringAsync();
+            }
+
+            Assert.True(response.IsSuccessStatusCode, error); 
+
+            var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
+            Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
+        }
+
         // [Fact]
-        // public async Task Deve_Retornar_Lista_Por_Description()
+        // public async Task Deve_Retornar_Lista_Por_ProjectID()
         // {
-
-        //     var model = new LogModel
-        //     {
-        //         Description = "Teste description",
-        //         Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
-        //         LogType = Domains.Logs.LogTypeEnum.Error
-        //     };
-
-        //     await this.CriarLog(model);
-        //     var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
-        //     var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
-
-        //     var response = await this.Get($"{dataInicial}/{dataFinal}/?description=description");
-        //     string error = "";
-        //     if (!response.IsSuccessStatusCode)
-        //     {
-        //         error = await response.Content.ReadAsStringAsync();
-        //     }
-
-        //     Assert.True(response.IsSuccessStatusCode, error); 
-
-        //     var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
-        //     Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
-        // }
-
-        // [Fact]
-        // public async Task Deve_Retornar_Lista_Por_Source()
-        // {
-
-        //     var model = new LogModel
-        //     {
-        //         Description = "Teste description",
-        //         Source = "Source adsdlasjd ajsdh kj jahs dkjhs akjdh kasjhdjk asdh kj",
-        //         LogType = Domains.Logs.LogTypeEnum.Error
-        //     };
-
-        //     await this.CriarLog(model);
-        //     var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
-        //     var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
-
-        //     var response = await this.Get($"{dataInicial}/{dataFinal}/?description=Source");
-        //     string error = "";
-        //     if (!response.IsSuccessStatusCode)
-        //     {
-        //         error = await response.Content.ReadAsStringAsync();
-        //     }
-
-        //     Assert.True(response.IsSuccessStatusCode, error); 
-
-        //     var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
-        //     Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
-        // }
-
-        // [Fact]
-        // public async Task Deve_Retornar_Lista_Por_LogType()
-        // {
-
         //     var model = new LogModel
         //     {
         //         Description = "Teste description",
@@ -169,7 +195,7 @@ namespace qsLog.Test.Integration.Logs
         //     var dataInicial = DateTime.Now.ToString("yyyy-MM-dd");
         //     var dataFinal = DateTime.Now.ToString("yyyy-MM-dd");;
 
-        //     var response = await this.Get($"{dataInicial}/{dataFinal}/?type=" + model.LogType);
+        //     var response = await this.Get($"{dataInicial}/{dataFinal}/?projectID=" + model.LogType);
         //     string error = "";
         //     if (!response.IsSuccessStatusCode)
         //     {
@@ -179,7 +205,7 @@ namespace qsLog.Test.Integration.Logs
         //     Assert.True(response.IsSuccessStatusCode, error); 
 
         //     var list = JsonConvert.DeserializeObject<List<LogListDTO>>(await response.Content.ReadAsStringAsync());
-        //     Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero.");
+        //     Assert.True(list.Count > 0, "Deve retornar uma lista de logs maior que zero pra o projectID.");
         // }
 
 

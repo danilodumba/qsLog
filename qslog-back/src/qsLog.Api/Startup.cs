@@ -13,12 +13,9 @@ using qsLog.Applications.IoC;
 using qsLog.Infrastructure.Database.MongoDB.IoC;
 using MassTransit;
 using qsLog.Api.Consumers;
-using RabbitMQ.Client;
-using System;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Http;
 
 namespace qsLog
 {
@@ -107,7 +104,6 @@ namespace qsLog
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //adding endpoint of health check for the health check ui in UI format
                 endpoints.MapHealthChecks("/healthz", new HealthCheckOptions
                 {
                     Predicate = _ => true,
@@ -148,7 +144,7 @@ namespace qsLog
         private void ConfigureHealthChecks(IServiceCollection services)
         {
             var connRabbitMQ = Configuration.GetSection("QsLogSettings:RabbitConnection").Value;
-            //adding health check services to container
+
             services.AddHealthChecks()
                 .AddMongoDb(mongodbConnectionString: Configuration.GetSection("MongoConnection:ConnectionString").Value,
                         name: "mongoDB",

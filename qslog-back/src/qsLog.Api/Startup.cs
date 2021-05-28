@@ -48,34 +48,34 @@ namespace qsLog
             });
 
 
-            // var logSettings = Configuration.GetSection("QsLogSettings");
-            // var useRabbitMQ = logSettings.GetValue<bool>("UseHabbitMQ");
-            // if (useRabbitMQ)
-            // {
-            //     var connection = logSettings.GetValue<string>("RabbitConnection");
-            //     var queue = logSettings.GetValue<string>("Queue");
+            var logSettings = Configuration.GetSection("QsLogSettings");
+            var useRabbitMQ = logSettings.GetValue<bool>("UseHabbitMQ");
+            if (useRabbitMQ)
+            {
+                var connection = logSettings.GetValue<string>("RabbitConnection");
+                var queue = logSettings.GetValue<string>("Queue");
 
-            //     services.AddMassTransit(cfg =>
-            //     {
-            //         cfg.AddConsumer<LogConsumer>();
-            //         cfg.UsingRabbitMq((context, config) =>
-            //         {
-            //             config.ReceiveEndpoint(queue, e =>
-            //             {
-            //                 e.ClearMessageDeserializers();
-            //                 e.UseRawJsonSerializer();
-            //                 e.ConfigureConsumer<LogConsumer>(context);
-            //             });
+                services.AddMassTransit(cfg =>
+                {
+                    cfg.AddConsumer<LogConsumer>();
+                    cfg.UsingRabbitMq((context, config) =>
+                    {
+                        config.ReceiveEndpoint(queue, e =>
+                        {
+                            e.ClearMessageDeserializers();
+                            e.UseRawJsonSerializer();
+                            e.ConfigureConsumer<LogConsumer>(context);
+                        });
 
-            //             config.Host(connection);
-            //         });
-            //     });
+                        config.Host(connection);
+                    });
+                });
 
-            //     services.AddMassTransitHostedService();
-            // }
+                services.AddMassTransitHostedService();
+            }
             
             this.ConfigureJWT(services);
-            //this.ConfigureHealthChecks(services);
+            this.ConfigureHealthChecks(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,10 +83,11 @@ namespace qsLog
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "qsLog v1"));
+               app.UseDeveloperExceptionPage();
             }
+    
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "qsLog v1"));
 
             app.UseRouting();
 
@@ -113,7 +114,7 @@ namespace qsLog
                 endpoints.MapHealthChecksUI(s => 
                 {
                     s.UIPath = "/healthcheck";
-                    s.AddCustomStylesheet("dotnet.css");
+                    //s.AddCustomStylesheet("dotnet.css");
                 });
             });
         }

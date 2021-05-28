@@ -48,31 +48,31 @@ namespace qsLog
             });
 
 
-            var logSettings = Configuration.GetSection("QsLogSettings");
-            var useRabbitMQ = logSettings.GetValue<bool>("UseHabbitMQ");
-            if (useRabbitMQ)
-            {
-                var connection = logSettings.GetValue<string>("RabbitConnection");
-                var queue = logSettings.GetValue<string>("Queue");
+            // var logSettings = Configuration.GetSection("QsLogSettings");
+            // var useRabbitMQ = logSettings.GetValue<bool>("UseHabbitMQ");
+            // if (useRabbitMQ)
+            // {
+            //     var connection = logSettings.GetValue<string>("RabbitConnection");
+            //     var queue = logSettings.GetValue<string>("Queue");
 
-                services.AddMassTransit(cfg =>
-                {
-                    cfg.AddConsumer<LogConsumer>();
-                    cfg.UsingRabbitMq((context, config) =>
-                    {
-                        config.ReceiveEndpoint(queue, e =>
-                        {
-                            e.ClearMessageDeserializers();
-                            e.UseRawJsonSerializer();
-                            e.ConfigureConsumer<LogConsumer>(context);
-                        });
+            //     services.AddMassTransit(cfg =>
+            //     {
+            //         cfg.AddConsumer<LogConsumer>();
+            //         cfg.UsingRabbitMq((context, config) =>
+            //         {
+            //             config.ReceiveEndpoint(queue, e =>
+            //             {
+            //                 e.ClearMessageDeserializers();
+            //                 e.UseRawJsonSerializer();
+            //                 e.ConfigureConsumer<LogConsumer>(context);
+            //             });
 
-                        config.Host(connection);
-                    });
-                });
+            //             config.Host(connection);
+            //         });
+            //     });
 
-                services.AddMassTransitHostedService();
-            }
+            //     services.AddMassTransitHostedService();
+            // }
             
             this.ConfigureJWT(services);
             //this.ConfigureHealthChecks(services);

@@ -26,7 +26,7 @@ namespace qsLog.Api.Consumers
 
                 _logger.LogInformation($"Mensagem recebida. {log.Description}");
 
-                var command = new CreateLogCommand(log.Description, log.Teste, log.LogType.Value, log.ApiKey.Value);
+                var command = new CreateLogCommand(log.Description, log.Source, log.LogType.Value, log.ApiKey.Value);
                 var id = await _mediator.Send(command);
 
                 _logger.LogInformation($"Id do Log. {id}");

@@ -3,10 +3,10 @@
  <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>QsLog</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>Danilo Dumbá</Authors>
     <Company>DDSTECH</Company>
-    <PackageDescription>Pacote para acesso ao qsLog</PackageDescription>
+    <PackageDescription>Pacote para acesso as funcionalidades do qsLog</PackageDescription>
     <RepositoryUrl>https://github.com/danilodumba/qsLog</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>

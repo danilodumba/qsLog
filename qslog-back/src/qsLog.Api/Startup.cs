@@ -34,12 +34,11 @@ namespace qsLog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices(); // Inclui o servico de aplicacao.
-           
+
             // services.AddInfraDatabaseMySql(Configuration.GetConnectionString("MySqlConn")); //Inclui o banco de dados da infra
             services.AddInfraDatabaseMongoDB(Configuration);
             services.AddValidationService(); //Adicionado a validacao com mensagens do qsLibPack
-            // services.AddQsLog(Configuration); //Adicionando os logs
-            
+
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -47,35 +46,38 @@ namespace qsLog
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "qsLog", Version = "v1" });
             });
 
-
-            var logSettings = Configuration.GetSection("QsLogSettings");
-            var useRabbitMQ = logSettings.GetValue<bool>("UseHabbitMQ");
-            if (useRabbitMQ)
+            if (!Env.IsStaging())
             {
-                var connection = logSettings.GetValue<string>("RabbitConnection");
-                var queue = logSettings.GetValue<string>("Queue");
-
-                services.AddMassTransit(cfg =>
+                var logSettings = Configuration.GetSection("QsLogSettings");
+                var useRabbitMQ = logSettings.GetValue<bool>("UseHabbitMQ");
+                if (useRabbitMQ)
                 {
-                    cfg.AddConsumer<LogConsumer>();
-                    cfg.UsingRabbitMq((context, config) =>
+                    var connection = logSettings.GetValue<string>("RabbitConnection");
+                    var queue = logSettings.GetValue<string>("Queue");
+
+                    services.AddMassTransit(cfg =>
                     {
-                        config.ReceiveEndpoint(queue, e =>
+                        cfg.AddConsumer<LogConsumer>();
+                        cfg.UsingRabbitMq((context, config) =>
                         {
-                            e.ClearMessageDeserializers();
-                            e.UseRawJsonSerializer();
-                            e.ConfigureConsumer<LogConsumer>(context);
+                            config.ReceiveEndpoint(queue, e =>
+                            {
+                                e.ClearMessageDeserializers();
+                                e.UseRawJsonSerializer();
+                                e.ConfigureConsumer<LogConsumer>(context);
+                            });
+
+                            config.Host(connection);
                         });
-
-                        config.Host(connection);
                     });
-                });
 
-                services.AddMassTransitHostedService();
+                    services.AddMassTransitHostedService();
+                }
+                this.ConfigureHealthChecks(services);
             }
-            
+
             this.ConfigureJWT(services);
-            this.ConfigureHealthChecks(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,19 +85,19 @@ namespace qsLog
         {
             if (env.IsDevelopment())
             {
-               app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
-    
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "qsLog v1"));
 
             app.UseRouting();
 
-             app.UseCors(b => 
-                        b.AllowAnyHeader()
-                         .AllowAnyMethod()
-                         .AllowAnyOrigin()
-            );
+            app.UseCors(b =>
+                       b.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+           );
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -105,17 +107,21 @@ namespace qsLog
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions
-                {
-                    Predicate = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
 
-                endpoints.MapHealthChecksUI(s => 
+                if (!Env.IsStaging())
                 {
-                    s.UIPath = "/healthcheck";
-                    //s.AddCustomStylesheet("dotnet.css");
-                });
+                    endpoints.MapHealthChecks("/healthz", new HealthCheckOptions
+                    {
+                        Predicate = _ => true,
+                        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                    });
+
+                    endpoints.MapHealthChecksUI(s =>
+                    {
+                        s.UIPath = "/healthcheck";
+                        //s.AddCustomStylesheet("dotnet.css");
+                    });
+                }
             });
         }
 
@@ -124,11 +130,11 @@ namespace qsLog
             var securityKey = Configuration.GetSection("SecurityKey").Value;
 
             var key = Encoding.ASCII.GetBytes(securityKey);
-            services.AddAuthentication(x => 
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x => 
+            }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
@@ -154,11 +160,11 @@ namespace qsLog
 
             services.AddHealthChecksUI(opt =>
             {
-                    opt.SetEvaluationTimeInSeconds(15);
-                    opt.MaximumHistoryEntriesPerEndpoint(60);
-                    opt.SetApiMaxActiveRequests(1);
-                    
-                    opt.AddHealthCheckEndpoint("infra", "/healthz");
+                opt.SetEvaluationTimeInSeconds(15);
+                opt.MaximumHistoryEntriesPerEndpoint(60);
+                opt.SetApiMaxActiveRequests(1);
+
+                opt.AddHealthCheckEndpoint("infra", "/healthz");
             })
             .AddInMemoryStorage();
         }

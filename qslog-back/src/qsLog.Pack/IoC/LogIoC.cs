@@ -28,7 +28,7 @@ namespace qsLogPack.IoC
                 var queue = settings.GetValue<string>("Queue");
                 var connectionRabbit = settings.GetValue<string>("RabbitConnection");
 
-                //services.AddScoped<ILogRepository, LogRabbitRepository>();
+                services.AddScoped<ILogRepository, LogRabbitRepository>();
 
                 services.AddRebus(c => c
                     .Transport(t => t.UseRabbitMq(connectionRabbit, queue))

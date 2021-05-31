@@ -1,0 +1,11 @@
+version: '3'
+
+services: 
+    qslog: 
+        image: qslog
+        build: 
+            context: .
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Homolog
+        ports: 
+            - 5400:80

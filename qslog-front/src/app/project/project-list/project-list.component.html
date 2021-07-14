@@ -73,13 +73,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>qs.log</td>
-                            <td>123567</td>
+                        <tr *ngFor="let item of projects; let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{item.name}}</td>
+                            <td>{{item.apiKey}}</td>
                             <td>
-                                <span class="label label-inline label-light-primary font-weight-bold">
-                                    Pending
+                                <span class="label label-inline label-light-success font-weight-bold">
+                                    Ativo
                                 </span>
                             </td>
                             <td>

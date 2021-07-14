@@ -13,6 +13,8 @@ import { ProjectListComponent } from './project/project-list/project-list.compon
 import { LogListComponent } from './logs/log-list/log-list.component';
 import { LogViewComponent } from './logs/log-view/log-view.component';
 import { SignInComponent } from './login/sign-in/sign-in.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { SignInComponent } from './login/sign-in/sign-in.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BlockUIModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

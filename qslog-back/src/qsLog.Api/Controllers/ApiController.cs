@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace qsLog.Presentetion.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ApiController: ControllerBase
     {
         protected string ProjectApiKey { get; private set; }

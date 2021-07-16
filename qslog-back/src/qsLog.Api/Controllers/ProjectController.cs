@@ -33,10 +33,17 @@ namespace qsLog.Presentetion.Controllers
             return NoContent();
         }
 
-        [HttpGet]
-        public IActionResult ListAll()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remove(Guid id)
         {
-            return Ok(_projectService.ListAll());
+            await _projectService.Remove(id);
+            return NoContent();
+        }
+
+        [HttpGet]
+        public IActionResult ListByName(string name)
+        {
+            return Ok(_projectService.ListByName(name));
         }
 
         [HttpGet("{id}", Name="Get")]

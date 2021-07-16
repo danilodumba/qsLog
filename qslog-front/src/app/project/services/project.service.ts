@@ -13,6 +13,7 @@ export class ProjectService extends CoreService {
   }
 
   create(model: any): Observable<any>{
+    console.log(model);
     return this.post<any>(model);
   }
 
@@ -20,8 +21,12 @@ export class ProjectService extends CoreService {
     return this.put<any>(model, id);
   }
 
-  list(): Observable<any>{
-    return this.get<any>('');
+  remove(id: string): Observable<any>{
+    return this.delete<any>(id);
+  }
+
+  list(name: string): Observable<any>{
+    return this.get<any>('?name=' + name);
   }
 
   getById(id: string): Observable<any>{

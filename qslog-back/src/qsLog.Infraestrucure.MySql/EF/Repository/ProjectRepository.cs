@@ -29,5 +29,10 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Repository
         {
             return _dbSet.FirstOrDefault(x => x.ApiKey == apiKey);
         }
+
+        public IEnumerable<Project> ListByName(string name)
+        {
+           return _dbSet.Where(x => x.Name.Contains(name));
+        }
     }
 }

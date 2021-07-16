@@ -73,9 +73,16 @@ namespace qsLog.Applications.Services.Projects
             };
         }
 
-        public Task<IList<ProjectModel>> ListByName(string name)
+        public IList<ProjectListModel> ListByName(string name)
         {
-            throw new NotImplementedException();
+            var projects = _projectRepository.ListByName(name);
+
+            return projects.Select(p => new ProjectListModel()
+            {
+                Name = p.Name,
+                ApiKey = p.ApiKey,
+                Id = p.Id
+            }).ToList();
         }
 
         public async Task Update(ProjectModel model, Guid id)
@@ -97,6 +104,26 @@ namespace qsLog.Applications.Services.Projects
 
                 project.SetName(model.Name);
                 await _projectRepository.UpdateAsync(project);
+                await _uow.CommitAsync();
+            }
+            catch (DomainException dx)
+            {
+                _validationService.AddErrors("P01", dx.Message);
+            }
+        }
+
+        public async Task Remove(Guid id)
+        {
+            try
+            {
+                var project = await _projectRepository.GetByIDAsync(id);
+                if (project == null)
+                {
+                     _validationService.AddErrors("404", "Projeto não encontrado para o ID informado.");
+                     return;
+                }
+               
+                await _projectRepository.RemoveAsync(project);
                 await _uow.CommitAsync();
             }
             catch (DomainException dx)

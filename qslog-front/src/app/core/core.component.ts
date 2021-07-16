@@ -11,4 +11,8 @@ export abstract class CoreComponent {
         this.blockUI.stop();
     }
 
+    protected catchError(e: any) {
+        console.log(e);
+        this.endLoading();
+    }
 }

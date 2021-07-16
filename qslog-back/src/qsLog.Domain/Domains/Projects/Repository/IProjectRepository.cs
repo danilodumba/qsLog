@@ -9,5 +9,6 @@ namespace qsLog.Domains.Projects.Repository
         IEnumerable<Project> ListAll();
         bool ApiKeyExists(Guid apiKey);
         Project GetByApiKey(Guid apiKey);
+        IEnumerable<Project> ListByName(string name);
     }
 }

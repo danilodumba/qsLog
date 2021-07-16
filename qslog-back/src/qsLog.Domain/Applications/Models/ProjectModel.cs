@@ -4,10 +4,10 @@ using qsLog.Applications.Validations;
 
 namespace qsLog.Applications.Models
 {
-    public class ProjectModel: Model<Guid>
+    public class ProjectModel: Model<Guid?>
     {
         public string Name { get; set; }
-        public Guid ApiKey { get; set; }
+        public Guid? ApiKey { get; set; }
 
         public override bool IsValid()
         {

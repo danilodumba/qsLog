@@ -1,1 +1,36 @@
-<p>project-form works!</p>
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <!--begin::Form-->
+    <form [formGroup]="principalForm">
+        <div class="card-body">
+            <div class="mb-8">
+                <div class="form-group">
+                    <label>Nome:</label>
+                  
+                        <input type="text" formControlName="name" [ngClass]="classInvalidField('name')"
+                            class="form-control">
+                        <span class="form-text text-danger" *ngIf="isInvalidField('name')">Por favor, informe um
+                            nome.</span>
+                </div>
+
+                <div class="form-group" *ngIf="isUpdate">
+                    <label>API-KEY</label>
+                        <input type="text" formControlName="apiKey" 
+                         class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light-success btn-sm font-weight-bold ml-2"
+        (click)="save()">Gravar</button>
+    <button type="button" class="btn btn-light-primary btn-sm font-weight-bold ml-2"
+        (click)="bsModalRef.hide()">Sair</button>
+</div>

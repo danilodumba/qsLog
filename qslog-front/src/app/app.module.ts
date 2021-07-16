@@ -15,6 +15,8 @@ import { LogViewComponent } from './logs/log-view/log-view.component';
 import { SignInComponent } from './login/sign-in/sign-in.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,10 +33,13 @@ import { BlockUIModule } from 'ng-block-ui';
     SignInComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

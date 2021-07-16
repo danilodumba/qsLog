@@ -30,5 +30,16 @@ namespace qsLog.Infrastructure.Database.MongoDB.Repositories
         {
             return _dbSet.Find(Builders<Project>.Filter.Empty).ToList();
         }
+
+        public IEnumerable<Project> ListByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return ListAll().Result;
+            }
+            
+
+            return _dbSet.Find(x => x.Name.Contains(name)).ToList();
+        }
     }
 }

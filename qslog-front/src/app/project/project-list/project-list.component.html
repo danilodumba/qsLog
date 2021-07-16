@@ -12,11 +12,12 @@
             <div class="d-flex align-items-center" id="kt_subheader_search">
                 <form class="ml-5">
                     <div class="input-group input-group-sm input-group-solid" style="min-width: 300px">
-                        <input type="text" class="form-control" id="kt_subheader_search_form" placeholder="Procurar...">
+                        <input type="text" class="form-control" placeholder="Procurar..." (keyup)="onChangeFilter($event)">
                         <div class="input-group-append">
                             <span class="input-group-text">
-                                <span class="svg-icon">
-                                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
+                                <div class="spinner spinner-track spinner-info mr-5" *ngIf="showLoading"></div>
+                                <span class="svg-icon" *ngIf="!showLoading">
+                                    
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -29,7 +30,7 @@
                                                 fill="#000000" fill-rule="nonzero"></path>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
+                                 
                                 </span>
                                 <!--<i class="flaticon2-search-1 icon-sm"></i>-->
                             </span>
@@ -47,7 +48,7 @@
             <a href="#" class=""></a>
             <!--end::Button-->
             <!--begin::Button-->
-            <a href="custom/apps/user/add-user.html" class="btn btn-light-primary font-weight-bold ml-2"><i class="icon-xl fas fa-folder-plus"></i> Projeto</a>
+            <a href="javascript:;" (click)="newItem()" class="btn btn-light-info btn-sm font-weight-bold ml-2"><i class="icon-sm fas fa-plus"></i> Projeto</a>
             <!--end::Button-->
         </div>
         <!--end::Toolbar-->
@@ -62,13 +63,16 @@
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body">
-                <table class="table table-hover">
+                <div class="alert alert-info" role="alert" *ngIf="projects.length == 0">
+                    Não existe projetos para o filtro informado.
+                </div>
+                <table class="table table-hover" *ngIf="projects.length > 0">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">ApiKey</th>
-                            <th scope="col">Status</th>
+                            <!-- <th scope="col">Status</th> -->
                             <th scope="col" style="width: 100px;"></th>
                         </tr>
                     </thead>
@@ -77,14 +81,14 @@
                             <th scope="row">{{i + 1}}</th>
                             <td>{{item.name}}</td>
                             <td>{{item.apiKey}}</td>
-                            <td>
+                            <!-- <td>
                                 <span class="label label-inline label-light-success font-weight-bold">
                                     Ativo
                                 </span>
-                            </td>
+                            </td> -->
                             <td>
                                 <span style="overflow: visible; position: relative; width: 130px;">
-                                    <a href="javascript:;"
+                                    <a href="javascript:;" (click)="edit(item.id)"
                                         class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2"
                                         title="Edit details"> <span class="svg-icon svg-icon-sm"> <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +108,7 @@
                                             </svg> </span> 
                                     </a> 
                                     
-                                    <a href="javascript:;"
+                                    <a href="javascript:;" (click)="remove(item.id)"
                                         class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon"
                                         title="Delete"> <span class="svg-icon svg-icon-sm"> <svg
                                                 xmlns="http://www.w3.org/2000/svg"

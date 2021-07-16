@@ -31,6 +31,11 @@ namespace qsLog.Infrastructure.Database.MySql.EF.Repository
             return await _dbSet.FirstOrDefaultAsync(x => x.UserName == userName);
         }
 
+        public IList<User> List(string search)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<User> ListAll()
         {
             return _dbSet.OrderBy(x => x.Name).AsNoTracking();

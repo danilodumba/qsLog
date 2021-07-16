@@ -11,5 +11,6 @@ namespace qsLog.Domains.Users.Repository
         IEnumerable<User> ListAll();
         Task<User> GetByUserName(string userName);
         bool ExistsUserName(string userName);
+        IList<User> List(string search);
     }
 }

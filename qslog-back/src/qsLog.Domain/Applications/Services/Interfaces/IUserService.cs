@@ -12,9 +12,10 @@ namespace qsLog.Applications.Services.Interfaces
         Task Update(UserModel model, Guid id);
         Task<UserModel> GetByID(Guid id);
         IList<UserListModel> ListAll();
-        Task<IList<UserListModel>> GetByName(string name);
+        IList<UserListModel> List(string search);
         Task ChangePassoword(Guid id, string oldPassword, PasswordVO newPassword);
         Task ResetPassword(Guid id);
         Task<Guid> CreateAdminUser();
+        Task Remove(Guid id);
     }
 }

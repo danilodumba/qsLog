@@ -100,9 +100,17 @@ namespace qsLog.Applications.Services.Users
             };
         }
 
-        public Task<IList<UserListModel>> GetByName(string name)
+        public IList<UserListModel> List(string search)
         {
-            throw new NotImplementedException();
+            var users = _userRepository.List(search);
+            return users.Select(u => new UserListModel
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                UserName = u.UserName,
+                Administrator = u.Administrator
+            }).ToList();
         }
 
         public async Task Update(UserModel model, Guid id)
@@ -166,6 +174,22 @@ namespace qsLog.Applications.Services.Users
             catch (DomainException dx)
             {
                 _validationService.AddErrors("ResetPassoword", dx.Message);
+            }
+        }
+
+        public async Task Remove(Guid id)
+        {
+            var user = await _userRepository.GetByIDAsync(id);
+            if (user == null) return;
+
+            try
+            {
+                await _userRepository.RemoveAsync(user);
+                await _uow.CommitAsync();
+            }
+            catch (DomainException dx)
+            {
+                _validationService.AddErrors("RemoveUser", dx.Message);
             }
         }
     }

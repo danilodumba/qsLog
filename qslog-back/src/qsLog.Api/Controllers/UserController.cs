@@ -6,10 +6,12 @@ using qsLibPack.Domain.ValueObjects;
 using qsLog.Applications.Models;
 using qsLog.Applications.Services.Interfaces;
 using qsLog.Presentetion.Models;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace qsLog.Presentetion.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     public class UserController: ApiController
     {
@@ -44,12 +46,6 @@ namespace qsLog.Presentetion.Controllers
             return NoContent();
         }
 
-        [HttpGet]
-        public IActionResult ListAll()
-        {
-            return Ok(_userService.ListAll());
-        }
-
         [HttpGet("{id}", Name="GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -62,11 +58,11 @@ namespace qsLog.Presentetion.Controllers
             return NotFound("Usuario nao encontrado");
         }
 
-        [HttpGet("name")]
-        public async Task<IActionResult> ListByName(string name)
+        [HttpGet()]
+        public IActionResult List(string search)
         {
-            var model = await _userService.GetByName(name);
-            return Ok(model);
+            var model =  _userService.List(search);
+            return Ok(model.OrderBy(x => x.Name));
         }
 
         [HttpPut("{id}/change-password")]
@@ -80,6 +76,13 @@ namespace qsLog.Presentetion.Controllers
         public async Task<IActionResult> ResetPassowrd(Guid id)
         {
             await _userService.ResetPassword(id);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remove(Guid id)
+        {
+            await _userService.Remove(id);
             return NoContent();
         }
     }

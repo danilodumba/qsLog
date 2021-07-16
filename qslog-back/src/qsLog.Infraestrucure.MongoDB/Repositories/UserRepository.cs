@@ -31,6 +31,19 @@ namespace qsLog.Infrastructure.Database.MongoDB.Repositories
             return users.FirstOrDefault();
         }
 
+        public IList<User> List(string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return _dbSet.Find(Builders<User>.Filter.Empty).ToList();
+            }
+
+            return _dbSet.Find(x => 
+                x.Name.Contains(search) ||
+                x.UserName.Contains(search)
+            ).ToList();
+        }
+
         IEnumerable<User> IUserRepository.ListAll()
         {
             return _dbSet.Find(Builders<User>.Filter.Empty).ToList();

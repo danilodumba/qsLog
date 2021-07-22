@@ -39,7 +39,7 @@ export class AlertService {
     private showAlert(type: SweetAlertIcon, title: string, message: string) {
         Swal.fire({
             title: title,
-            text: message,
+            html: message,
             icon: type,
             confirmButtonColor: '#1BC5BD',
         });

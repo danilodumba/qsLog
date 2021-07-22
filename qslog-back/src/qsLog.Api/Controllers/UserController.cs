@@ -52,7 +52,13 @@ namespace qsLog.Presentetion.Controllers
             var model = await _userService.GetByID(id);
             if (model != null)
             {
-                return Ok(model);
+                var u = new {
+                    model.Email,
+                    model.UserName,
+                    model.Name,
+                    model.Administrator
+                };
+                return Ok(u);
             }
 
             return NotFound("Usuario nao encontrado");

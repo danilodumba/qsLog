@@ -1,5 +1,6 @@
 import { FormGroup } from "@angular/forms";
 import { BsModalRef } from "ngx-bootstrap/modal";
+import { AlertService } from "./alert.service";
 import { CoreComponent } from "./core.component";
 
 export abstract class FormModalComponent extends CoreComponent {
@@ -9,9 +10,10 @@ export abstract class FormModalComponent extends CoreComponent {
     title: string = '';
 
     constructor(
-        public bsModalRef: BsModalRef
+        public bsModalRef: BsModalRef,
+        public alertService: AlertService
     ) {
-        super();
+        super(alertService);
     }
 
     isInvalidField(fieldName: string): boolean {

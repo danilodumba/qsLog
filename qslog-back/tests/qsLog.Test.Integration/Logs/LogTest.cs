@@ -239,15 +239,14 @@ namespace qsLog.Test.Integration.Logs
         {
             var projetoTest = new ProjectTest();
             var model = projetoTest.ObterProjeto().Result;
-            return model.ApiKey;
+            return model.ApiKey.Value;
         }
 
         private Guid ObterIdProjeto()
         {
             var projetoTest = new ProjectTest();
             var model = projetoTest.ObterProjeto().Result;
-            return model.Id;
+            return model.Id.Value;
         }
-       
     }
 }

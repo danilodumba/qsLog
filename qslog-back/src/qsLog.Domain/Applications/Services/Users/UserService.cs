@@ -37,7 +37,7 @@ namespace qsLog.Applications.Services.Users
 
             try
             {
-                var user = new User(model.Name, model.UserName, model.Email, new PasswordVO(model.Password, model.ConfirmPassword), model.Administrator);
+                var user = new User(model.Name, model.UserName, model.Email, new PasswordVO("123456", "123456"), model.Administrator);
                 await _userRepository.CreateAsync(user);
                 await _uow.CommitAsync();
 

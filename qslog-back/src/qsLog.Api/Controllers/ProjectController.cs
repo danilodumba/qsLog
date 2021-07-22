@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using qsLog.Api.Models;
 using qsLog.Applications.Models;
 using qsLog.Applications.Services.Interfaces;
 
@@ -17,9 +19,17 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ProjectModel model)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Create([FromBody] CreateProjectModel model)
         {
-            var id = await _projectService.Create(model);
+            var project = new ProjectModel
+            {
+                Name = model.Name
+            };
+
+            var id = await _projectService.Create(project);
             if (id == Guid.Empty)
                 return NoContent();
             
@@ -27,9 +37,14 @@ namespace qsLog.Presentetion.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] ProjectModel model, Guid id)
+        public async Task<IActionResult> Update([FromBody] CreateProjectModel model, Guid id)
         {
-            await _projectService.Update(model, id);
+            var project = new ProjectModel
+            {
+                Name = model.Name
+            };
+
+            await _projectService.Update(project, id);
             return NoContent();
         }
 

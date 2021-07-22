@@ -16,10 +16,10 @@ export class ProjectFormComponent extends FormModalComponent implements OnInit {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private alertService: AlertService,
+    public alertService: AlertService,
     private projectService: ProjectService
     ) {
-    super(bsModalRef);
+    super(bsModalRef, alertService);
     this.createForm();
   }
  

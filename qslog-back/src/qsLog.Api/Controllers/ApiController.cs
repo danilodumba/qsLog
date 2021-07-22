@@ -9,9 +9,9 @@ namespace qsLog.Presentetion.Controllers
     {
         protected string ProjectApiKey { get; private set; }
 
-        public void SetProjectApiKey(string apiKey)
-        {
-            this.ProjectApiKey = apiKey;
-        }
+        // public void SetProjectApiKey(string apiKey)
+        // {
+        //     this.ProjectApiKey = apiKey;
+        // }
     }
 }

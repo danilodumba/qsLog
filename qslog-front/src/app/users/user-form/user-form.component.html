@@ -1,1 +1,55 @@
-<p>user-form works!</p>
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <!--begin::Form-->
+    <form [formGroup]="principalForm">
+        <div class="card-body">
+            <div class="mb-2">
+                <div class="form-group">
+                    <label>Nome:</label>
+                  
+                        <input type="text" formControlName="name" [ngClass]="classInvalidField('name')"
+                            class="form-control">
+                        <span class="form-text text-danger" *ngIf="isInvalidField('name')">Por favor, informe um
+                            nome.</span>
+                </div>
+                <div class="form-group">
+                    <label>E-mail:</label>
+                  
+                        <input type="text" formControlName="email" [ngClass]="classInvalidField('email')"
+                            class="form-control">
+                        <span class="form-text text-danger" *ngIf="isInvalidField('email')">Por favor, informe um
+                            e-mail.</span>
+                </div>
+                <div class="form-group">
+                    <label>Login:</label>
+                  
+                        <input type="text" formControlName="userName" [ngClass]="classInvalidField('userName')"
+                            class="form-control">
+                        <span class="form-text text-danger" *ngIf="isInvalidField('userName')">Por favor, informe um
+                            login.</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-form-label">
+                        <div class="checkbox-inline">
+                            <label class="checkbox checkbox-success">
+                            <input type="checkbox" name="Checkboxes5" formControlName="administrator">
+                            <span></span>Administrador</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light-success btn-sm font-weight-bold ml-2"
+        (click)="save()">Gravar</button>
+    <button type="button" class="btn btn-light-primary btn-sm font-weight-bold ml-2"
+        (click)="bsModalRef.hide()">Sair</button>
+</div>

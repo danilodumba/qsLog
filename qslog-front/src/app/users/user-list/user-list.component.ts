@@ -18,11 +18,11 @@ export class UserListComponent extends CoreComponent implements OnInit {
   filter: string = '';
 
   constructor(
-    private alertService: AlertService,
+    public alertService: AlertService,
     private modalService: BsModalService,
     private userService: UserService
   ) { 
-    super();
+    super(alertService);
   }
 
   ngOnInit(): void {

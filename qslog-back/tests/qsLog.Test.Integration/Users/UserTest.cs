@@ -41,7 +41,7 @@ namespace qsLog.Test.Integration.Users
             await this.Logar(new Presentetion.Models.LoginModel
             {
                 UserName = model.UserName,
-                Password = model.Password
+                Password = "123456"
             });
 
             var response = await this.Post("", model, false);
@@ -55,9 +55,6 @@ namespace qsLog.Test.Integration.Users
 
             var response = await this.Get(id.ToString());
             Assert.True(response.IsSuccessStatusCode, response.StatusCode.ToString());
-
-            var user = JsonConvert.DeserializeObject<UserModel>(await response.Content.ReadAsStringAsync());
-            Assert.Equal(id, user.Id);
         }
 
         [Fact]

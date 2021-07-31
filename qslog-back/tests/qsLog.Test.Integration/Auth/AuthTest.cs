@@ -22,7 +22,7 @@ namespace qsLog.Test.Integration.Auth
             var loginModel = new LoginModel
             {
                 UserName = model.UserName,
-                Password = model.Password
+                Password = "123456"
             };
 
             var response = await this.Post("", loginModel);
@@ -42,7 +42,7 @@ namespace qsLog.Test.Integration.Auth
             var loginModel = new LoginModel
             {
                 UserName = "joao.abc.d",
-                Password = model.Password
+                Password = "123456"
             };
 
             var response = await this.Post("", loginModel);

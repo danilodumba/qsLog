@@ -38,18 +38,6 @@ namespace qsLog.Test.Applications.Models
             Assert.False(userModel.IsValid());
         }
 
-        [Theory]
-        [InlineData("", "      ")]
-        [InlineData("       ", "")]
-        [InlineData("123456", "12345")]
-        public void Deve_Retornar_Password_Invalido(string password, string confirmPassword)
-        {
-            var userModel = GetUser();
-            userModel.Password = password;
-            userModel.ConfirmPassword = confirmPassword;
-
-            Assert.False(userModel.IsValid());
-        }
 
         [Fact]
         public void Deve_Retornar_User_Valido()
@@ -63,11 +51,9 @@ namespace qsLog.Test.Applications.Models
             return new UserModel
             {
                 Name = "teste nome",
+                UserName = "teste.teste",
                 Email = "teste@teste.com.br",
-                Administrator = true,
-                UserName = "user name",
-                Password = "123456",
-                ConfirmPassword = "123456"
+                Administrator = true
             };
         }
     }

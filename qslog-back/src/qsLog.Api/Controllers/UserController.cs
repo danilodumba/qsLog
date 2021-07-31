@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace qsLog.Presentetion.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     public class UserController: ApiController
     {

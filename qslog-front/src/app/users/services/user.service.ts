@@ -36,4 +36,8 @@ export class UserService extends CoreService {
   checkUserAdmin() : Observable<any>{
     return this.get<any>('admin');
   }
+
+  resetPassword(id: string) : Observable<any>{
+    return this.putWithUrl<any>(`${id}/reset-password`, '');
+  }
 }

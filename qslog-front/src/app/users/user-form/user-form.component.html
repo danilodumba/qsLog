@@ -3,6 +3,8 @@
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
+    <button type="button" *ngIf="isUpdate" class="btn btn-light-info btn-sm font-weight-bold ml-2 pull-right"
+        (click)="resetPassword()">Resetar Senha</button>
 </div>
 <div class="modal-body">
     <!--begin::Form-->
@@ -48,6 +50,7 @@
     <!--end::Form-->
 </div>
 <div class="modal-footer">
+    
     <button type="button" class="btn btn-light-success btn-sm font-weight-bold ml-2"
         (click)="save()">Gravar</button>
     <button type="button" class="btn btn-light-primary btn-sm font-weight-bold ml-2"

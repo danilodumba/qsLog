@@ -66,6 +66,22 @@ export class UserFormComponent extends FormModalComponent implements OnInit {
     }
   }
 
+  resetPassword() {
+
+    this.alertService.showQuestion('Tem certeza disso??', 'Deseja realmente atualizar a senha desse usuario?', () => {
+      this.startLoading();
+      this.userService.resetPassword(this.id)
+      .subscribe(
+        () => {
+          this.alertService.showSuccess('Atualizado', 'A nova senha será 123456. Lembre o esperto de trocar em meus dados.');
+          this.endLoading();
+        }, e => {
+          this.catchError(e);
+        }
+      )
+    });
+  }
+
   private create() {
     this.startLoading();
     

@@ -71,13 +71,6 @@ namespace qsLog.Presentetion.Controllers
             return Ok(model.OrderBy(x => x.Name));
         }
 
-        [HttpPut("{id}/change-password")]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model, Guid id)
-        {
-            await _userService.ChangePassoword(id, model.Old, new PasswordVO(model.New, model.ConfirmNew));
-            return NoContent();
-        }
-
         [HttpPut("{id}/reset-password")]
         public async Task<IActionResult> ResetPassowrd(Guid id)
         {

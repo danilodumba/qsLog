@@ -2,8 +2,8 @@ namespace qsLog.Presentetion.Models
 {
     public class ChangePasswordModel
     {
-        public string Old { get; set; }
-        public string New { get; set; }
-        public string ConfirmNew { get; set; }
+        public string OldPassword { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

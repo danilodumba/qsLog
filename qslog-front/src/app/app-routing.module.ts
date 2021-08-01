@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MasterComponent } from './layout/master/master.component';
 import { SignInComponent } from './login/sign-in/sign-in.component';
 import { LogListComponent } from './logs/log-list/log-list.component';
+import { MyProfileComponent } from './profile/my-profile/my-profile.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'log', component: LogListComponent },
       { path: 'user', component: UserListComponent },
       { path: 'project', component: ProjectListComponent },
+      { path: 'profile', component: MyProfileComponent },
     ] },
 ];
 

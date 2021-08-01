@@ -1,1 +1,114 @@
-<p>my-profile works!</p>
+
+    <!--begin::Subheader-->
+    <div class="subheader py-3 py-lg-8 subheader-transparent" id="kt_subheader">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center mr-1">
+                <!--begin::Mobile Toggle-->
+                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                    <span></span>
+                </button>
+                <!--end::Mobile Toggle-->
+                <!--begin::Page Heading-->
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <!--begin::Page Title-->
+                    <h2 class="d-flex align-items-center text-dark font-weight-bold my-1 mr-3">Meus dados</h2>
+                    <!--end::Page Title-->
+                   
+                </div>
+                <!--end::Page Heading-->
+            </div>
+            <!--end::Info-->
+           
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container">
+            <!--begin::Profile Change Password-->
+            <div class="d-flex flex-row">
+              
+                <!--begin::Content-->
+                <div class="flex-row-fluid">
+                    <!--begin::Card-->
+                    <div class="card card-custom">
+                       
+                        <!--begin::Form-->
+                        <form class="form" [formGroup]="principalForm">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Nome</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input type="text" class="form-control form-control-lg form-control-solid mb-2" 
+                                        formControlName="name"
+                                        readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Email</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input type="text" class="form-control form-control-lg form-control-solid mb-2" 
+                                        formControlName="email"
+                                        readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Login</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input type="text" class="form-control form-control-lg form-control-solid mb-2" 
+                                        formControlName="userName"
+                                        readonly>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Senha antiga</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input type="password" class="form-control form-control-lg form-control-solid"
+                                        formControlName="oldPassword"
+                                        [ngClass]="classInvalidField('oldPassword')"
+                                        placeholder="Senha antiga">
+                                        <span class="form-text text-danger" *ngIf="isInvalidField('oldPassword')">Por favor, sua senha antiga.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Senha</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input type="password" class="form-control form-control-lg form-control-solid"
+                                        formControlName="password"
+                                        [ngClass]="classInvalidField('password')"
+                                        placeholder="Nova senha">
+                                        <span class="form-text text-danger" *ngIf="isInvalidField('password')">Por favor, informe uma
+                                            senha.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Confirme a senha</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input type="password" class="form-control form-control-lg form-control-solid" 
+                                        formControlName="confirmPassword"
+                                        [ngClass]="classInvalidField('confirmPassword')"
+                                        placeholder="Confirme sua senha">
+                                        <span class="form-text text-danger" *ngIf="isInvalidField('confirmPassword')">Confirme sua senha</span>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </form>
+                        <!--end::Form-->
+                        <div class="card-footer">
+                          
+                                <button type="button" class="btn btn-success mr-2" (click)="save()">Atualizar</button>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::Profile Change Password-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->

@@ -18,6 +18,10 @@ export class AlertService {
         this.showAlert('info', title, message);
     }
 
+    public showError(title: string, message: string) {
+        this.showAlert('error', title, message);
+    }
+
     public showQuestion(title: string, message: string, yes: Function) {
         
         Swal.fire({

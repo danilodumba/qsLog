@@ -36,7 +36,7 @@
               "src/assets/css/style.bundle.css"
             ],
             "scripts": [
-             
+              "src/assets/js/custom.js"
             ]
           },
           "configurations": {

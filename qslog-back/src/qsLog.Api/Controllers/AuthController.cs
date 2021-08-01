@@ -27,19 +27,23 @@ namespace qsLog.Presentetion.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             try
             {
                 var user = await _loginService.GetByUserName(model.UserName);
+                var modelError = new {
+                     Success = false,
+                };
+
                 if (user == null)
                 {
-                    return NotFound("Usuario ou senha invalidos.");
+                    return Ok(modelError);
                 }
 
                 if (!user.PasswordEquals(model.Password))
                 {
-                    return NotFound("Usuario ou senha invalidos.");
+                    return Ok(modelError);
                 }
 
                 var userModel = new {
@@ -47,6 +51,7 @@ namespace qsLog.Presentetion.Controllers
                     user.Email,
                     user.UserName,
                     IsAdmin = user.Administrator,
+                    Success = true,
                     Token = GetToken(user)
                 };
 

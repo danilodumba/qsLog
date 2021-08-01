@@ -9,6 +9,7 @@ using qsLog.Applications.Services.Interfaces;
 
 namespace qsLog.Presentetion.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     public class ProjectController: ApiController
     {

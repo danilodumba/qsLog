@@ -32,4 +32,8 @@ export class UserService extends CoreService {
   getById(id: string): Observable<any>{
     return this.get<any>(id);
   }
+
+  checkUserAdmin() : Observable<any>{
+    return this.get<any>('admin');
+  }
 }

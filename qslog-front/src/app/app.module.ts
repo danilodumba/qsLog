@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './layout/menu/menu.component';
@@ -22,6 +22,15 @@ import { MasterComponent } from './layout/master/master.component';
 import { MenuProfileComponent } from './profile/menu-profile/menu-profile.component';
 import { UpdadePasswordComponent } from './profile/updade-password/updade-password.component';
 import { MyProfileComponent } from './profile/my-profile/my-profile.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import localePtBr from '@angular/common/locales/pt';
+
+import { registerLocaleData } from '@angular/common';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
+
+registerLocaleData(localePtBr);
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
@@ -42,13 +51,15 @@ import { MyProfileComponent } from './profile/my-profile/my-profile.component';
     MyProfileComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BlockUIModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

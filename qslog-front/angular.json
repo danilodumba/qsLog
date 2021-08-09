@@ -34,6 +34,7 @@
               "src/assets/plugins/global/plugins.bundle.css",
               "src/assets/plugins/custom/prismjs/prismjs.bundle.css",
               "src/assets/css/style.bundle.css",
+              "src/assets/css/login.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
             "scripts": [

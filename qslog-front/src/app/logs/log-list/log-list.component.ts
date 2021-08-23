@@ -5,6 +5,8 @@ import { CoreComponent } from 'src/app/core/core.component';
 import { ProjectService } from 'src/app/project/services/project.service';
 import { LogService } from '../services/log.service';
 import * as moment from 'moment';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { LogViewComponent } from '../log-view/log-view.component';
 
 @Component({
   selector: 'app-log-list',
@@ -19,12 +21,14 @@ export class LogListComponent extends CoreComponent implements OnInit {
   description = '';
   projectID = '';
   type = '';
+  bsModalRef!: BsModalRef;
 
   constructor(
     public alertService: AlertService,
     private logService: LogService,
     private projectService: ProjectService,
     private localeService: BsLocaleService,
+    private modalService: BsModalService,
   ) {
     super(alertService);
     this.localeService.use('pt-br');
@@ -66,9 +70,14 @@ export class LogListComponent extends CoreComponent implements OnInit {
       })
   }
 
-  edit(id: string) {
-
+  viewLog(id: string) {
+    const initialState = {
+      logID: id
+    };
+    this.bsModalRef = this.modalService.show(LogViewComponent, {initialState, class: 'modal-lg'});
   }
+
+
 
   getStatusCss(type: number) : string{
 

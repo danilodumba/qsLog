@@ -3,5 +3,6 @@ export class LogModel {
     source: string = '';
     id: string = '';
     logType: number = 1;
-    project: string = '';
+    projectName: string = '';
+    date: Date = new Date();
 }

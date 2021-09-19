@@ -43,4 +43,32 @@ export class LogViewComponent extends CoreComponent implements OnInit {
     });
   }
 
+  getStatusCss(type: number) : string{
+
+    switch (type) {
+      case 1:
+        return 'label-light-info'
+      case 2:
+        return 'label-light-warning'
+      case 3:
+        return 'label-light-danger'
+      default:
+        return 'label-light-danger'
+    }
+  }
+
+  getNameType(type: number) : string{
+
+    switch (type) {
+      case 1:
+        return 'Info'
+      case 2:
+        return 'Alerta'
+      case 3:
+        return 'Erro'
+      default:
+        return 'Erro'
+    }
+  }
+
 }

@@ -40,7 +40,9 @@ namespace qsLog.Applications.CommandHandlers
                 Source = log.Source,
                 LogType = log.LogType,
                 ProjectID = log.Project.Id,
-                Id = log.Id
+                Id = log.Id,
+                ProjectName = log.Project.Name,
+                Date = log.Creation
             };
         }
     }

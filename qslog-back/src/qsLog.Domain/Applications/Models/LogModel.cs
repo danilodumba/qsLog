@@ -10,5 +10,7 @@ namespace qsLog.Applications.Models
         public string Source { get; set; }
         public LogTypeEnum LogType { get; set; }
         public Guid ProjectID { get; set; }
+        public DateTime Date { get; set; }
+        public string ProjectName { get; set; }
     }
 }

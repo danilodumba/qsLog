@@ -6,16 +6,32 @@
 </div>
 <div class="modal-body">
         <div class="card-body">
-            <div class="mb-8">
-                <div class="form-group">
-                    <label class="">Descricao:</label>
-                    <label>{{logModel.description}}</label>
+            <div class="mb-6">
+               
+                <div class="row">
+                    <div class="col-md-3">
+                        {{logModel.date | date: 'dd/MM/yyyy HH:mm'}}
+                    </div>
+                    <div class="col-md-6">
+                        {{logModel.projectName}}
+                    </div>
+                    <div class="col-md-3">
+                        <span [ngClass]="getStatusCss(logModel.logType)" class="label label-inline font-weight-bold">
+                            {{getNameType(logModel.logType)}}
+                        </span>
+                    </div>
                 </div>
-<hr>
-                <div class="form-group">
-                    <label>Erro:</label>
-                    <label>{{logModel.source}}</label>
+                <div class="row pt-5">
+                    <div class="col-md-12">
+                        <label class="h6"><strong>Descrição:</strong></label>
+                        <p>{{logModel.description}}</p>
+                        <label class="h6"><strong>Erro:</strong></label>
+                        <p>{{logModel.source}}</p>
+                    </div>
+                  
                 </div>
+
+                    
             </div>
         </div>
 </div>

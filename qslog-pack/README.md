@@ -48,7 +48,7 @@ Inclua no seu appsettings a tag.
 |UseHabbitMQ  | Informe true para usar o habbitMQ |
 |ApiKey  | Chave gerada ao criar o projeto no sistema QS.LOG |
 |RabbitConnection  | Usa string de conexao para conectar ao HabbitMQ |
-|Queue  | Nome da fila para ser gerado o log |
+|Queue  | Nome da fila para ser gerado o log. Lembre - se que deve ser a mesma fila configurada o backend do qs.log. |
 
 
 ## Capturando os errors, warnings ou informations. 

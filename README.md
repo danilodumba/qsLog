@@ -16,8 +16,8 @@ O backend foi escrito em .NET 5.0 podendo ser utilizado com banco de dados MySql
 
 ### Frontend
 
-O front foi escrito com Angular 9.0. 
+O front foi escrito com Angular 11. 
 
 ### Pacote
 
-O pacote foi escrido em .NET 3.1 para melhor compatibilidade com alguns projetos legados. Esta disponivel no nuget.
+O pacote foi escrido em .NET 3.1 para melhor compatibilidade com alguns projetos legados. Esta disponivel no nuget. [![NuGet](https://img.shields.io/nuget/v/qsLog.svg)](https://nuget.org/packages/qsLog)

@@ -1,4 +1,4 @@
-# O que é o qs.log
+# O que é o qs.log?
 O qs.log é um sistema simplificado para gerenciamento de logs e para usar como ditatica para quem quiser aprender alguns padrões de projeto e estilos arquiteturais como: 
 - DDD
 - Testes de Unidade
@@ -9,7 +9,7 @@ O qs.log é um sistema simplificado para gerenciamento de logs e para usar como 
 - ...
 
 Pode ser usado com banco de dados relacionais ou não relacionais. 
-Pode ser usado tambem com o HabbitMQ. 
+Pode ser usado tambem com o HabbitMQ para gerenciar as filas de mensagens. 
 
 ## Estrutura
 

@@ -2,11 +2,11 @@
 
 1. Referencie em seu projeto o [qs.log](https://nuget.org/packages/qsLog) 
 2. Adicione o projeto no startup.cs
-    No método `ConfigureServices` adicione o qs.log.
-    ```csharp
-        services.AddQsLog(this.Configuration);
-    ```
-    No método `Configure` use:
+No método `ConfigureServices` adicione o qs.log.
+```csharp
+    services.AddQsLog(this.Configuration);
+```
+No método `Configure` use:
 ```csharp
     app.UseQsLog();
 ```

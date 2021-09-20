@@ -49,3 +49,15 @@ Inclua no seu appsettings a tag.
 |ApiKey  | Chave gerada ao criar o projeto no sistema QS.LOG |
 |RabbitConnection  | Usa string de conexao para conectar ao HabbitMQ |
 |Queue  | Nome da fila para ser gerado o log |
+
+
+## Capturando os errors, warnings ou informations. 
+
+Automaticamente seu sistema ira capturar todas as excecoes nao tratadas e enviará para o log.
+
+Caso queira pegar alguma excecao basta usar o servico `ILogService`. 
+Ao injetar o servico em sua classe use os metodos: 
+
+- Information;
+- Warning
+- Error

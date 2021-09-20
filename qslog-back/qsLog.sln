@@ -15,11 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Test.Integration", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Domain", "src\qsLog.Domain\qsLog.Domain.csproj", "{45C7DF7D-683C-4E64-BE0D-E3921D26C881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Infraestrucure.MongoDB", "src\qsLog.Infraestrucure.MongoDB\qsLog.Infraestrucure.MongoDB.csproj", "{5B9BFF08-A975-4531-8D66-7905CF49675F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Infra.MongoDB", "src\qsLog.Infra.MongoDB\qsLog.Infra.MongoDB.csproj", "{5B9BFF08-A975-4531-8D66-7905CF49675F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Infraestrucure.MySql", "src\qsLog.Infraestrucure.MySql\qsLog.Infraestrucure.MySql.csproj", "{8D894B51-D294-499F-B073-DE7FECEC6C74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Infra.MySql", "src\qsLog.Infra.MySql\qsLog.Infra.MySql.csproj", "{8D894B51-D294-499F-B073-DE7FECEC6C74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Infrastructure.RabbitMQ", "src\qsLog.Infrastructure.RabbitMQ\qsLog.Infrastructure.RabbitMQ.csproj", "{594AE957-13DB-40B4-8FE8-D1156119A079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qsLog.Infra.RabbitMQ", "src\qsLog.Infra.RabbitMQ\qsLog.Infra.RabbitMQ.csproj", "{594AE957-13DB-40B4-8FE8-D1156119A079}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-# Como usar? [![NuGet](https://img.shields.io/nuget/v/qsLog.svg)](https://nuget.org/packages/qsLog)
+## Como usar? [![NuGet](https://img.shields.io/nuget/v/qsLog.svg)](https://nuget.org/packages/qsLog)
 
 1. Referencie em seu projeto o [qs.log](https://nuget.org/packages/qsLog) 
 2. Adicione o projeto no startup.cs

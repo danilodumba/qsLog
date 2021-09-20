@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\qsLog.Api\qsLog.Api.csproj" />
-    <ProjectReference Include="..\..\src\qsLog.Infrastructure.RabbitMQ\qsLog.Infrastructure.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\src\qsLog.Infra.RabbitMQ\qsLog.Infra.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

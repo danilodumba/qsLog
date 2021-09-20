@@ -6,15 +6,15 @@
     ```csharp
         services.AddQsLog(this.Configuration);
     ```
-3. Em configure use:
+    No método `Configure` use:
 ```csharp
     app.UseQsLog();
 ```
 >**Note:** Informe o codigo acima antes de todos os app.Use existentes.
 
-4. No appsettings.json
+3. No appsettings.json
 
-4.1 Para usar via POST. 
+- Para usar via POST. 
 
 Inclua no seu appsettings a tag.
 
@@ -29,7 +29,7 @@ Inclua no seu appsettings a tag.
 |LogApi  | Link da API onde instalou o backend |
 |ApiKey  | Chave gerada ao criar o projeto no sistema QS.LOG |
 
-4.2 Para usar via HabbitMQ.
+- Para usar via HabbitMQ.
 
 Inclua no seu appsettings a tag.
 

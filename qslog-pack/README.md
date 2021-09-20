@@ -53,9 +53,9 @@ Inclua no seu appsettings a tag.
 
 ## Capturando os errors, warnings ou informations. 
 
-Automaticamente seu sistema ira capturar todas as excecoes nao tratadas e enviará para o log.
+Automaticamente seu sistema irá capturar todas as exceções não tratadas e enviará para o qs.log.
 
-Caso queira pegar alguma excecao basta usar o servico `ILogService`. 
+Caso queira informar alguma exceção basta usar o servico `ILogService`. 
 Ao injetar o servico em sua classe use os metodos: 
 
 - Information;

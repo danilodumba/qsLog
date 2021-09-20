@@ -59,5 +59,5 @@ Caso queira informar alguma exceção basta usar o servico `ILogService`.
 Ao injetar o servico em sua classe use os metodos: 
 
 - Information;
-- Warning
-- Error
+- Warning;
+- Error;

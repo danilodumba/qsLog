@@ -16,13 +16,14 @@ namespace qsLog.Infrastructure.Database.MongoDB.QueryRepository
     public class LogQueryRepository : ILogQueryRepository
     {
         readonly IQueryable<Log> _dbSet;
+        readonly IMongoCollection<Log> _collection;
 
         public LogQueryRepository(IMongoContext context)
         {
             _dbSet = context.GetCollection<Log>(typeof(Log).Name).AsQueryable();
+            _collection = context.GetCollection<Log>(typeof(Log).Name);
         }
 
-        //TODO: Implementar o restante dos filtros. Por enquanto esta somente para testes e aprendizado. 
         public IEnumerable<LogListDTO> List(PeriodoVO period, string description, Guid? projectID, LogTypeEnum? type)
         {
             var startDate = period.DataInicial.Date;

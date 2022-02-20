@@ -9,4 +9,4 @@ spec:
   ports:
   - name: qslog-back
     protocol: TCP
-    port: 5004 
+    port: 80 

@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: qslog-back
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -18,4 +18,4 @@ spec:
       - name:  qslog-back
         image:  danilodumba/qslog-back:latest
         ports:
-        - containerPort:  5004
+        - containerPort:  80

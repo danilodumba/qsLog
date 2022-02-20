@@ -5,7 +5,7 @@ pipeline {
         stage('Construindo imagem') {
             steps {
                 script {
-                    dockerapp = docker.build('danilodumba/qslog-back', './qslog-back/Dockerfile ./qslog-back')
+                    dockerapp = docker.build('danilodumba/qslog-back', '-f ./qslog-back/Dockerfile ./qslog-back')
                 }
             }
         }

@@ -23,7 +23,7 @@ pipeline {
 
         stage('Deploy no kubernetes') {
             steps {
-                sh "microk8s kubectl get nodes"
+                sh "microk8s kubectl apply -f qslog-back/kubernetes/deployment.yaml"
             }
         }
     }

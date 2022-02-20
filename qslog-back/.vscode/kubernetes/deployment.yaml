@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  qslog-back
+  namespace: qslog
+  labels:
+    app:  qslog-back
+spec:
+  selector:
+    matchLabels:
+      app: qslog-back
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app:  qslog-back
+    spec:
+      containers:
+      - name:  qslog-back
+        image:  danilodumba/qslog-back:latest
+        ports:
+        - containerPort:  5004

@@ -5,8 +5,9 @@ metadata:
 spec:
   selector:
     app: qslog-back
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - name: qslog-back
     protocol: TCP
-    port: 80 
+    port: 5004
+    targetPort: 80 

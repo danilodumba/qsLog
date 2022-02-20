@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  qslog-back
-  namespace: qslog
   labels:
     app:  qslog-back
 spec:

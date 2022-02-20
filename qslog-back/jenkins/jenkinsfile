@@ -5,7 +5,17 @@ pipeline {
         stage('Construindo imagem') {
             steps {
                 script {
-                    dockerapp = docker.build('danilodumba/qslog-back', '-f ./qslog-back/Dockerfile ./qslog-back')
+                    dockerapp = docker.build("danilodumba/qslog-back:${env.BUILD_ID}", '-f ./qslog-back/Dockerfile ./qslog-back')
+                }
+            }
+        }
+
+        stage('Adicionando imagem') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        dockerapp.push('${env.BUILD_ID}')
+                    }
                 }
             }
         }

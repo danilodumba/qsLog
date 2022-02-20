@@ -14,10 +14,17 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerapp.push("${env.BUILD_ID}")
+                        dockerapp.pus
+                        stash("${env.BUILD_ID}")
                         dockerapp.push('latest')
                     }
                 }
+            }
+        }
+
+        stage('Deploy no kubernetes') {
+            steps {
+                sh 'microk8s kubectl get nodes'
             }
         }
     }

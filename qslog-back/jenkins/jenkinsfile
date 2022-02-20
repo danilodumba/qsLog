@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('inicial') {
+        stage('Construindo imagem') {
             steps {
-                echo 'Iniciando o projeto'
+                script {
+                    dockerapp = docker.build('danilodumba/qslog-back', './qslog-back/Dockerfile ./qslog-back')
+                }
             }
         }
     }

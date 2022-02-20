@@ -22,10 +22,6 @@ pipeline {
             }
         }
 
-        stage('Deploy no kubernetes') {
-            steps {
-                sh "microk8s kubectl get nodes"
-            }
-        }
+        
     }
 }

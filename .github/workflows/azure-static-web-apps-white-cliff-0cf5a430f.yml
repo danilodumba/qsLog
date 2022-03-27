@@ -16,7 +16,7 @@ jobs:
     name: Build and Deploy Job
     steps:
       - name: Teste de Secret
-        run: echo "${{ secrets.API }}"
+        run: echo ${{ secrets.API }}
       - uses: actions/checkout@v2
         with:
           submodules: true

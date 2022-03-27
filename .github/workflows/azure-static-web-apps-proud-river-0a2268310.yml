@@ -19,9 +19,13 @@ jobs:
         with:
           submodules: true
       - name: Instalando os pacotes
-        run: npm install
+        run: |
+          cd qslog-front
+          npm install
       - name: Build Angular 
-        run: npm run build -- --prod
+        run: |
+          cd qslog-front
+          npm run build -- --prod
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertService } from 'src/app/core/alert.service';
 import { FormComponent } from 'src/app/core/form.component';
 import { UserService } from 'src/app/users/services/user.service';
+import { environment } from 'src/environments/environment';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -13,6 +14,8 @@ import { LoginService } from '../services/login.service';
 })
 export class SignInComponent extends FormComponent implements OnInit {
   
+  versao: String = '';
+
   constructor(
     private router: Router,
     public alertService: AlertService,
@@ -25,6 +28,7 @@ export class SignInComponent extends FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkUserAdmin();
+    this.versao = environment.versao;
   }
 
   createForm(): void {

@@ -28,7 +28,7 @@ export class SignInComponent extends FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkUserAdmin();
-    this.versao = environment.versao;
+    this.versao = environment.versao + ' ' + environment.api;
   }
 
   createForm(): void {

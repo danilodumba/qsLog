@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: 'http://localhost:57869/api',
-  versao: 'DES - 1.0.0'
+  versao: 'DES'
 };
 
 /*

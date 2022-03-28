@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: '#api_producao#',
-  versao: 'PROD - 1.0.0'
+  api: 'https://log.qsse.com.br',
+  versao: 'PROD - BETA 1.0.5'
 };

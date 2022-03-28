@@ -21,7 +21,7 @@ jobs:
       - name: Atualizando Variavel de ambiente
         run: |
           cat qslog-front/src/environments/environment.prod.ts
-          sed -i 's/#api_producao#/' + ${{secrets.API}} + '/g' qslog-front/src/environments/environment.prod.ts
+          sed -i $'s/#api_producao#/{{secrets.API}}/g' qslog-front/src/environments/environment.prod.ts
           cat qslog-front/src/environments/environment.prod.ts
   #     - name: Instalando os pacotes
   #       run: |

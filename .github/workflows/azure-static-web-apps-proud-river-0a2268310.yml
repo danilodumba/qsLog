@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true
       - name: Atualizando Variavel de ambiente
-        run: sed '#api_producao#/${{secrets.API}}' /qslog-front/src/environments/environment.prod.ts
+        run: sed '#api_producao#/${{secrets.API}}' qslog-front/src/environments/environment.prod.ts
       - name: Instalando os pacotes
         run: |
           cd qslog-front

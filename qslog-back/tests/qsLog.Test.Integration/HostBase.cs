@@ -4,13 +4,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using qsLog.Infrastructure.Database.MySql.EF.Contexts;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
-using qsLog.Domains.Logs.Repository;
-using qsLog.Test.Integration.Logs;
 using qsLog.Presentetion.Models;
 using System;
 

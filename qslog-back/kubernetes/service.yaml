@@ -5,7 +5,6 @@ metadata:
 spec:
   selector:
     app: qslog-back
-  type: LoadBalancer
   ports:
   - name: qslog-back
     protocol: TCP

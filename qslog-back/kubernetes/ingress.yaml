@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qslog-back
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /log
+        backend:
+          serviceName: qslog-back
+          servicePort: 80

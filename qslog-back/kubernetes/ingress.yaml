@@ -4,9 +4,13 @@ metadata:
   name: qslog-back
 spec:
   rules:
-  - http:
-      paths:
-      - path: /log
-        backend:
-          serviceName: qslog-back
-          servicePort: 80
+    - host: apilog.qsse.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qslog-back
+                port:
+                  number: 80

@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: qslog-back
 spec:
+  type: ClusterIP
   selector:
     app: qslog-back
   ports:
   - name: qslog-back
     protocol: TCP
-    port: 5004
+    port: 80
     targetPort: 80 

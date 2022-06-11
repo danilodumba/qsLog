@@ -1,6 +1,6 @@
 FROM node:alpine AS my-app-build
 WORKDIR /app
-COPY . .
+COPY qslog-front/. .
 
 RUN npm ci --force
 ARG env=prod

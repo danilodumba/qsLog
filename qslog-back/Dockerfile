@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
-COPY src/. ./
+COPY qslog-back/src/. ./
 WORKDIR /app/qsLog.Api
 RUN dotnet publish -c Release -o out
 

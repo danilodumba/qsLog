@@ -1,26 +1,6 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Construindo imagem') {
-            steps {
-                script {
-                    dockerapp = docker.build("danilodumba/qslog-back:${env.BUILD_ID}", '-f ./qslog-back/Dockerfile ./qslog-back')
-                }
-            }
-        }
-
-        stage('Adicionando imagem') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerapp.push("${env.BUILD_ID}")
-                        dockerapp.push('latest')
-                    }
-                }
-            }
-        }
-
         stage('Deploy no kubernetes') {
             steps {
                 sh "microk8s kubectl apply -f qslog-back/kubernetes/deployment.yaml"

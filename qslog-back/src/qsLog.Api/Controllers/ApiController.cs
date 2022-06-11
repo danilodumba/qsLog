@@ -9,7 +9,7 @@ namespace qsLog.Presentetion.Controllers
     [Authorize]
     public class ApiController: ControllerBase
     {
-        protected Guid UserID 
+        protected Guid UserID
         { 
             get {
                 var id = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qslog-front
+spec:
+  type: ClusterIP
+  selector:
+    app: qslog-front
+  ports:
+  - name: qslog-front
+    protocol: TCP
+    port: 80
+    targetPort: 80 

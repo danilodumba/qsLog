@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  qslog-front
+  labels:
+    app:  qslog-front
+spec:
+  selector:
+    matchLabels:
+      app: qslog-front
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  qslog-front
+    spec:
+      containers:
+      - name:  qslog-front
+        image:  danilodumba/qslog-front:1.5.0
+        ports:
+        - containerPort:  80

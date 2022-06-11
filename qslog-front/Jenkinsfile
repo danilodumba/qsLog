@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy no kubernetes') {
+            steps {
+                sh "microk8s kubectl apply -f qslog-front/kubernetes/deployment.yaml"
+                sh "microk8s kubectl apply -f qslog-front/kubernetes/service.yaml"
+                sh "microk8s kubectl apply -f qslog-front/kubernetes/ingress.yaml"
+            }
+        }
+    }
+}

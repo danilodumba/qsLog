@@ -79,8 +79,10 @@ export class UserListComponent extends CoreComponent implements OnInit {
   showModal(initialState: any) {
     this.bsModalRef = this.modalService.show(UserFormComponent, {initialState});
 
-    this.bsModalRef.onHide.subscribe(() => {
-      this.list();
+    this.modalService.onHidden.subscribe(() => {
+      // if (this.bsModalRef.content.sucesso) {
+        this.list();
+      // }
     });
   }
 }

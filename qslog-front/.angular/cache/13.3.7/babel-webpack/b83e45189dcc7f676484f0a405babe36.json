@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class LogModel {\n  constructor() {\n    this.description = '';\n    this.source = '';\n    this.id = '';\n    this.logType = 1;\n    this.projectName = '';\n    this.date = new Date();\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

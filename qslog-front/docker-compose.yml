@@ -1,0 +1,11 @@
+version: '3'
+
+services: 
+    qslog-front: 
+        image: qslog-front
+        build: 
+            context: .
+        environment: 
+            - env=prod
+        ports: 
+            - 4500:80

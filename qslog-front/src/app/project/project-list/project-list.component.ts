@@ -79,10 +79,12 @@ export class ProjectListComponent extends CoreComponent implements OnInit {
   }
 
   showModal(initialState: any) {
-    this.bsModalRef = this.modalService.show(ProjectFormComponent, {initialState});
+    this.modalService.show(ProjectFormComponent, {initialState});
 
-    this.bsModalRef.onHide.subscribe(() => {
-      this.list();
+    this.modalService.onHidden.subscribe(() => {
+      // if (this.bsModalRef.content.sucesso) {
+        this.list();
+      // }
     });
   }
 }

@@ -16,10 +16,10 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image 
-      run: docker build . --file qslog-front/Dockerfile --tag danilodumba/qslog-front:1.5.0
+      run: docker build . --file qslog-front/Dockerfile --tag danilodumba/qslog-front:1.5.1
     - name: Build the Docker image latest 
       run: docker build . --file qslog-front/Dockerfile --tag danilodumba/qslog-front
     - name: Docker Push
       run: | 
-        docker push danilodumba/qslog-front:1.5.0
+        docker push danilodumba/qslog-front:1.5.1
         docker push danilodumba/qslog-front

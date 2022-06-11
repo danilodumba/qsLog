@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  qslog-back
+  name: qslog-back
   labels:
-    app:  qslog-back
+    app: qslog-back
 spec:
   selector:
     matchLabels:
@@ -12,10 +12,10 @@ spec:
   template:
     metadata:
       labels:
-        app:  qslog-back
+        app: qslog-back
     spec:
       containers:
-      - name:  qslog-back
-        image:  danilodumba/qslog-back:1.5.0
+      - name: qslog-back
+        image: danilodumba/qslog-back:1.5.0
         ports:
         - containerPort:  80

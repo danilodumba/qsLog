@@ -2,9 +2,9 @@ version: '3'
 
 services: 
     qslog-front: 
-        image: qslog-front
-        build: 
-            context: .
+        image: danilodumba/qslog-front
+        #build: 
+        #    context: .
         environment: 
             - env=prod
         ports: 

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: qslog-back
-        image: danilodumba/qslog-back:1.5.1
+        image: danilodumba/qslog-back:1.5.2
         ports:
         - containerPort:  80
         env:

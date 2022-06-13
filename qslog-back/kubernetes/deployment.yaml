@@ -19,3 +19,15 @@ spec:
         image: danilodumba/qslog-back:1.5.0
         ports:
         - containerPort:  80
+        env:
+        - name: MongoConnection__ConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: qslog
+              key: mongoDB
+        - name: QsLogSettings__RabbitConnection
+          valueFrom:
+            secretKeyRef:
+              name: qslog
+              key: habbitMQ
+   

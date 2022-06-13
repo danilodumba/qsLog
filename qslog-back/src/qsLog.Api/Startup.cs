@@ -101,7 +101,7 @@ namespace qsLog
 
                     services.AddMassTransitHostedService();
                 }
-                this.ConfigureHealthChecks(services);
+                //this.ConfigureHealthChecks(services);
             }
 
             this.ConfigureJWT(services);

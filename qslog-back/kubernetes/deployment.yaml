@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: qslog-back
-        image: danilodumba/qslog-back:1.5.2
+        image: danilodumba/qslog-back:1.5.3
         ports:
         - containerPort:  80
         env:
@@ -30,4 +30,9 @@ spec:
             secretKeyRef:
               name: qslog
               key: habbitMQ
+        - name: SecurityKey
+          valueFrom:
+            secretKeyRef:
+              name: qslog
+              key: SecurityKey
    

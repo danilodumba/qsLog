@@ -101,7 +101,7 @@ namespace qsLog
 
                     services.AddMassTransitHostedService();
                 }
-                //this.ConfigureHealthChecks(services);
+                this.ConfigureHealthChecks(services);
             }
 
             this.ConfigureJWT(services);
@@ -140,20 +140,20 @@ namespace qsLog
             {
                 endpoints.MapControllers();
 
-                // if (!Env.IsStaging())
-                // {
-                //     endpoints.MapHealthChecks("/healthz", new HealthCheckOptions
-                //     {
-                //         Predicate = _ => true,
-                //         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                //     });
+                if (!Env.IsStaging())
+                {
+                    endpoints.MapHealthChecks("/healthz", new HealthCheckOptions
+                    {
+                        Predicate = _ => true,
+                        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                    });
 
-                //     endpoints.MapHealthChecksUI(s =>
-                //     {
-                //         s.UIPath = "/healthcheck";
-                //         //s.AddCustomStylesheet("dotnet.css");
-                //     });
-                // }
+                    endpoints.MapHealthChecksUI(s =>
+                    {
+                        s.UIPath = "/healthcheck";
+                        //s.AddCustomStylesheet("dotnet.css");
+                    });
+                }
             });
         }
 

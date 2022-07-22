@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: qslog-front
-        image: danilodumba/qslog-front:1.5.2
+        image: danilodumba/qslog-front:1.5.3
         ports:
         - containerPort: 80

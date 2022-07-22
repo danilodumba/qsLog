@@ -21,5 +21,5 @@ jobs:
       run: docker build . --file qslog-front/Dockerfile --tag danilodumba/qslog-front
     - name: Docker Push
       run: | 
-        docker push danilodumba/qslog-front:1.5.2
+        docker push danilodumba/qslog-front:1.5.3
         docker push danilodumba/qslog-front
